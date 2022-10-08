@@ -1,11 +1,14 @@
 {
   "name": "pandas-ninja",
   "version": "0.1.0",
+  "homepage": "https://dridk.github.io/pandas-ninja/",
   "private": true,
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.11",
     "@chakra-ui/react": "^2.3.5",
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
+    "@tanstack/react-table": "^8.5.15",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.0.1",
     "@testing-library/user-event": "^14.1.0",
@@ -13,17 +16,22 @@
     "@types/node": "^12.0.0",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.4",
+    "allotment": "^1.17.0",
     "framer-motion": "^6.2.9",
+    "gh-pages": "^4.0.0",
     "react": "^18.1.0",
+    "react-ace": "^10.1.0",
     "react-dom": "^18.1.0",
-    "react-icons": "^3.0.0",
+    "react-icons": "^4.4.0",
     "react-scripts": "5.0.1",
+    "react-table": "^7.8.0",
     "typescript": "^4.6.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
