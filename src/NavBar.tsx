@@ -32,9 +32,11 @@ import { ChevronLeftIcon,ChevronRightIcon,HamburgerIcon} from '@chakra-ui/icons'
 interface NavBarProps {
     title: string
     description: string
+    onDrawerClicked?: ()=>void
+
 }
 
-export function NavBar({title, description}:NavBarProps) {
+export function NavBar({title, description,onDrawerClicked}:NavBarProps) {
     
 
 
@@ -56,7 +58,7 @@ export function NavBar({title, description}:NavBarProps) {
         
         <Button colorScheme='teal' variant="outline" size ="md" rightIcon={<ChevronRightIcon />} >Next Level </Button>
 
-        <IconButton size="md" variant="outline" aria-label='Menu' icon={<HamburgerIcon />} />
+        <IconButton onClick={()=>onDrawerClicked && onDrawerClicked()} size="md" variant="outline" aria-label='Menu' icon={<HamburgerIcon />} />
         </HStack>
         
 
