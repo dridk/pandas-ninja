@@ -8,7 +8,7 @@ import {
     Heading,
     Spacer,
     IconButton,
-    
+    Icon,
     Drawer,
     DrawerBody,
     DrawerFooter,
@@ -27,16 +27,18 @@ import {
 } from "@chakra-ui/react"
 
 import { ChevronLeftIcon,ChevronRightIcon,HamburgerIcon} from '@chakra-ui/icons'
+import { FaPython } from 'react-icons/fa';
 
 
 interface NavBarProps {
     title: string
     description: string
+    loading?: boolean
     onDrawerClicked?: ()=>void
 
 }
 
-export function NavBar({title, description,onDrawerClicked}:NavBarProps) {
+export function NavBar({title, description,loading=true,onDrawerClicked}:NavBarProps) {
     
 
 
@@ -55,10 +57,10 @@ export function NavBar({title, description,onDrawerClicked}:NavBarProps) {
         <Text pl={2} color="brand"> {description} </Text>
         <Spacer/>
         <HStack>
-        
+        <Button isLoading={loading} hidden={!loading} loadingText='Loading Python' colorScheme='teal' variant='outline' spinnerPlacement='start'/>
         <Button colorScheme='teal' variant="outline" size ="md" rightIcon={<ChevronRightIcon />} >Next Level </Button>
 
-        <IconButton onClick={()=>onDrawerClicked && onDrawerClicked()} size="md" variant="outline" aria-label='Menu' icon={<HamburgerIcon />} />
+        <IconButton onClick={()=>onDrawerClicked?.()} size="md" variant="outline" aria-label='Menu' icon={<HamburgerIcon />} />
         </HStack>
         
 

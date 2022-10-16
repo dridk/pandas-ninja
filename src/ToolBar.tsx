@@ -20,7 +20,7 @@ import { FaPlay } from 'react-icons/fa';
 
 interface ToolBarProps {
     title?:string,
-    children: JSX.Element
+    children: JSX.Element | JSX.Element[]
 }
 
 export function ToolBar(props:ToolBarProps)

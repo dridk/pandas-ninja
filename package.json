@@ -8,6 +8,7 @@
     "@chakra-ui/react": "^2.3.5",
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
+    "@shopify/react-shortcuts": "^5.0.2",
     "@tanstack/react-table": "^8.5.15",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.0.1",
@@ -25,6 +26,7 @@
     "react-dom": "^18.1.0",
     "react-icons": "^4.4.0",
     "react-scripts": "5.0.1",
+    "react-shortcuts": "^2.1.0",
     "react-table": "^7.8.0",
     "typescript": "^4.6.3",
     "web-vitals": "^2.1.4"

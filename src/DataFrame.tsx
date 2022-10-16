@@ -29,13 +29,8 @@ import { type } from "os";
 export function DataFrame(props:DataFrameProps)
 {
     
-    // const data:any[] = [];
-    // for (let i=0; i<10; ++i)
-    // data.push({name:"boby", age:42})
-    // const keys = Object.keys(data[0])
-    
-    const data = props.data
-    //const keys = Object.keys(data[0])
+    let data = props.data ?? [];
+    let header:string[] = data.length > 0 ? Object.keys(data[0]) : []
     
     return (
         
@@ -48,16 +43,17 @@ export function DataFrame(props:DataFrameProps)
         </ToolBar>
         
         <Divider/>
-        <Box  padding={4} borderWidth={1} height="100%" borderColor="red">
-        <Box overflowY="auto" maxHeight="300px">
-        <Table>
-        {/* <Thead position="sticky" top={0}>
+        <Box height="100%" >
+
+        <TableContainer maxHeight="100%" overflowY="auto">
+        <Table variant='striped' size='sm' colorScheme="gray">
+        <Thead position="sticky">
         <Tr>
-        {keys.map((i)=>(
+        {header.map((i)=>(
             <Th>{i}</Th>
             ))}
             </Tr>
-        </Thead> */}
+        </Thead> 
         <Tbody>
         
         {
@@ -74,7 +70,7 @@ export function DataFrame(props:DataFrameProps)
 
         </Tbody>
         </Table>
-        </Box>
+        </TableContainer>
         </Box>
         
         </>

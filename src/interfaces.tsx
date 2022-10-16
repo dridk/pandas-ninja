@@ -20,3 +20,16 @@ export interface DataFrameProps{
     title:string,
     data: any
 }
+
+export interface EditorBoxProps{
+    code:string,
+    onCodeChanged?:(code:string)=>void,
+    onRun?: ()=>void
+}
+
+export interface LogBoxProps{
+    stdout?: string,
+    stderr?: string,
+    index?: number,
+    onIndexChanged?: (index:number)=> void
+}
