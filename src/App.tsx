@@ -19,21 +19,18 @@ import { LogBox } from "./LogBox";
 import { DataFrame } from "./DataFrame";
 import { Octokit } from "octokit"
 
+import { TextFrame } from "./TextFrame";
 
 
 import "allotment/dist/style.css";
 
 import {ChallengeFile, Challenge} from "./interfaces"
+import { ViewFrame } from "./ViewFrame";
 
 
-let pyodide:any = undefined;
 declare const window: any;
-
-
 let global_stdout:string = "";
-
 let current_input: [] = []
-
 
 
 export function App()
@@ -86,18 +83,21 @@ export function App()
     console.debug("Chargement de Python")
     setLoading(true)
 
-    pyodide = await window.loadPyodide({
+    window.pyodide = await window.loadPyodide({
       stdout: (text:string) => append_stdout(text),
       stderr: (text:string)=> setStdErr(text )
 
     });
-    console.log(pyodide.runPython(`
+    console.log(window.pyodide.runPython(`
         import sys
         sys.version
+
     `));
 
-    await pyodide.loadPackage(["pandas"]);
-
+    await window.pyodide.loadPackage(["pandas"]);
+    console.log(window.pyodide.runPython(`
+        import pandas as pd 
+    `));
     setLoading(false)
 
     return true
@@ -120,11 +120,11 @@ export function App()
 
    
     const df_input = JSON.stringify(input)
-    const start_code = `import pandas as pd\ndf = pd.DataFrame(${df_input})`
+    const start_code = `df = pd.DataFrame(${df_input})`
     const end_code = "df.to_json(orient='records')"
     const all_code = start_code + "\n" + code + "\n" + end_code
 
-    let json_result = pyodide.runPython(all_code);
+    let json_result = window.pyodide.runPython(all_code);
     json_result = JSON.parse(json_result)
     setComputedData(json_result)
    
@@ -216,8 +216,12 @@ export function App()
     </Allotment>
     
     <Allotment vertical={true}>
-    <DataFrame title="Input table" data={computedData}/>
-    <DataFrame title="Expected table"  data={currentChallenge?.expected ?? []}/>
+   
+    <ViewFrame title="yours" data={computedData}/>
+    <ViewFrame title="expected" data={currentChallenge?.expected}/>
+    
+    {/* <DataFrame title="Input table" data={computedData}/> */}
+    {/* <DataFrame title="Expected table"  data={currentChallenge?.expected ?? []}/> */}
     </Allotment>
     
     </Allotment>

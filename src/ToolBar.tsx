@@ -30,7 +30,7 @@ export function ToolBar(props:ToolBarProps)
         <>
             <Box  p={2}>
                <HStack>
-                <Heading as="h3" size='sm'>{props.title}</Heading>
+                <Heading size='sm'>{props.title}</Heading>
                 <Spacer/>
                 {props.children}
                </HStack>

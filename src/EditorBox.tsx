@@ -5,6 +5,7 @@ import {
     Stack,
     Spacer,
     Divider,
+    Tooltip,
     HStack,
     Icon,
     VStack,
@@ -22,6 +23,7 @@ import { ToolBar } from "./ToolBar";
 import { EditorBoxProps } from "./interfaces";
 import { Kbd } from '@chakra-ui/react'
 
+
 export function EditorBox(props:EditorBoxProps)
 {
 
@@ -34,12 +36,14 @@ export function EditorBox(props:EditorBoxProps)
         <ToolBar>
 
         {/* <span><Kbd>shift</Kbd> + <Kbd>C</Kbd></span> */}
+        <Tooltip hasArrow label='Execute your current code' fontSize='md'>
 
         <Button 
         onClick={()=>props.onRun?.()}
         size="xs"
         variant="ghost"
         leftIcon=<Icon as={FaPlay}/> >Run codes</Button>
+</Tooltip>
 
         </ToolBar>
             

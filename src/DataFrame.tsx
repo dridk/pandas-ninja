@@ -23,10 +23,13 @@ import {
 } from '@chakra-ui/react'
 
 
-import { DataFrameProps } from "./interfaces";
 import { type } from "os";
 
-export function DataFrame(props:DataFrameProps)
+
+interface Props {
+    data: any
+}
+export function DataFrame(props:Props)
 {
     
     let data = props.data ?? [];
@@ -35,14 +38,6 @@ export function DataFrame(props:DataFrameProps)
     return (
         
         <>
-        <ToolBar title={props.title}>
-        <Button 
-        size="xs" 
-        variant="ghost" leftIcon=<Icon as={FaRegCopy}/>>Copy to clipboard</Button>
-        
-        </ToolBar>
-        
-        <Divider/>
         <Box height="100%" >
 
         <TableContainer maxHeight="100%" overflowY="auto">
