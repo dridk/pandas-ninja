@@ -7,6 +7,7 @@ import {
   useBoolean,
   useDisclosure,
   Box,
+  ModalOverlay,
 } from "@chakra-ui/react"
 
 import theme from "./theme"
@@ -26,11 +27,12 @@ import "allotment/dist/style.css";
 
 import {ChallengeFile, Challenge} from "./interfaces"
 import { ViewFrame } from "./ViewFrame";
-
+import {WinDialog} from "./WinDialog"
 
 declare const window: any;
 let global_stdout:string = "";
 let current_input: [] = []
+let current_expected: [] = []
 
 
 export function App()
@@ -59,6 +61,7 @@ export function App()
     response.json().then((el:Challenge)=>{
     
       current_input = el.input;
+      current_expected = el.expected
       setCurrentChallenge(el) 
 
       setCode(`# Change the current \`df\` dataframe\n# to make it as the same as expected\ndf`)
@@ -103,6 +106,19 @@ export function App()
     return true
   }
 
+  // Check victory 
+  
+  function check_victory(user:any, expected:any){
+
+    if (JSON.stringify(user) == JSON.stringify(expected))
+    {
+     console.debug("WIN !!!!!!!!!!")
+      winDialog.onOpen()
+
+    }
+
+  }
+ 
 
    // Run python code
   function run_code(){
@@ -116,8 +132,6 @@ export function App()
     try {
     
     let input:[] = current_input
-    console.debug("input" + input)
-
    
     const df_input = JSON.stringify(input)
     const start_code = `df = pd.DataFrame(${df_input})`
@@ -127,6 +141,18 @@ export function App()
     let json_result = window.pyodide.runPython(all_code);
     json_result = JSON.parse(json_result)
     setComputedData(json_result)
+
+    console.debug("=====A")
+    console.debug(json_result)
+
+    console.debug("=====B")
+    console.debug(current_expected)
+
+    console.debug("=====C")
+   
+    check_victory(json_result, current_expected)
+
+ 
    
 
     }
@@ -164,6 +190,8 @@ export function App()
   const [stderr, setStdErr] = React.useState<string>();
   const [tabIndex, setTabIndex] = React.useState<number>(0);
 
+  const winDialog = useDisclosure({defaultIsOpen:true})
+
   // init application 
   React.useEffect(()=> {
     
@@ -185,7 +213,7 @@ export function App()
   return (
     <ChakraProvider theme={theme} >
 
-
+    <WinDialog isOpen={winDialog.isOpen} onClose={winDialog.onClose}/>
 
     <NavBar 
     title={currentChallenge?.name ?? "Not Set"} 

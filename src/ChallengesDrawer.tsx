@@ -62,7 +62,7 @@ export function ChallengesDrawer({isOpen, onClose, challenges, openChallenge}:Dr
 
            //const {name, download_url} = el;
 
-           <ListItem>
+           <ListItem key={value.name}>
             <Link onClick={()=>openChallenge(value.download_url)}>{value.name}</Link >
             </ListItem>
 
