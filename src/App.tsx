@@ -132,23 +132,32 @@ export function App()
     try {
     
     let input:[] = current_input
-   
-    const df_input = JSON.stringify(input)
-    const start_code = `df = pd.DataFrame(${df_input})`
-    const end_code = "df.to_json(orient='records')"
+
+
+    window.pyodide.globals.set("raw_input", input)
+
+       
+    const start_code = `import js\ndf = pd.DataFrame(raw_input.to_py())`
+    const end_code = `df = df.to_dict(orient="records")`
+
     const all_code = start_code + "\n" + code + "\n" + end_code
 
-    let json_result = window.pyodide.runPython(all_code);
-    json_result = JSON.parse(json_result)
+    window.pyodide.runPython(all_code);
+
+    let json_result = window.pyodide.globals.get("df")
+    json_result = json_result.toJs({dict_converter : Object.fromEntries})
+    
+    // console.debug(json_result)
+   
     setComputedData(json_result)
 
     console.debug("=====A")
-    console.debug(json_result)
+    console.debug(window.json_result)
 
-    console.debug("=====B")
-    console.debug(current_expected)
+    // console.debug("=====B")
+    // console.debug(current_expected)
 
-    console.debug("=====C")
+    // console.debug("=====C")
    
     check_victory(json_result, current_expected)
 
@@ -190,7 +199,7 @@ export function App()
   const [stderr, setStdErr] = React.useState<string>();
   const [tabIndex, setTabIndex] = React.useState<number>(0);
 
-  const winDialog = useDisclosure({defaultIsOpen:true})
+  const winDialog = useDisclosure({defaultIsOpen:false})
 
   // init application 
   React.useEffect(()=> {

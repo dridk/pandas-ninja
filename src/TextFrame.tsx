@@ -15,7 +15,9 @@ function to_string(data:any){
     if (data.length > 0)
     {
         const df_input = JSON.stringify(data)
-        const code = `str(pd.DataFrame(${df_input}))`
+
+        window.pyodide.globals.set("view_df", data)
+        const code = `str(pd.DataFrame(view_df.to_py()))`
         let result = window.pyodide.runPython(code)
         return result
     }
