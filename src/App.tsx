@@ -137,29 +137,35 @@ export function App()
     window.pyodide.globals.set("raw_input", input)
 
        
-    const start_code = `import js\ndf = pd.DataFrame(raw_input.to_py())`
+    const start_code = `import js\nimport ast\ndf = pd.DataFrame(raw_input.to_py())`
     const end_code = `df = df.to_dict(orient="records")`
+    const intro_code = `line_number=len(ast.parse("""${code}""").body)`
 
-    const all_code = start_code + "\n" + code + "\n" + end_code
+    let all_code = start_code + "\n" + code + "\n" + end_code + "\n" +intro_code
+
 
     window.pyodide.runPython(all_code);
 
+    console.debug(intro_code)
+
     let json_result = window.pyodide.globals.get("df")
+    let line_number = window.pyodide.globals.get("line_number")
     json_result = json_result.toJs({dict_converter : Object.fromEntries})
     
-    // console.debug(json_result)
+    console.debug(line_number)
    
-    setComputedData(json_result)
+    // setComputedData(json_result)
 
-    console.debug("=====A")
-    console.debug(window.json_result)
+    // console.debug("=====A")
+    // console.debug(window.json_result)
+    
 
-    // console.debug("=====B")
-    // console.debug(current_expected)
 
-    // console.debug("=====C")
    
-    check_victory(json_result, current_expected)
+
+    // check_victory(json_result, current_expected)
+
+
 
  
    
