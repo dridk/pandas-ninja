@@ -4,77 +4,64 @@
 import Header from "./Header.svelte"
 import ToolBar from "./ToolBar.svelte"
 import DataFrame from "./DataFrame.svelte"
+import LogBox from "./LogBox.svelte"
 
-import { Split, DefaultSplitter } from "@geoffcox/svelte-splitter"
 import CodeEditor from "./CodeEditor.svelte"
 
+import Grid from "./Grid.svelte"
 
-let splitter_size = "5px";
 
 </script>
 
 
+<Header>
+
+  
+    <label for="my-drawer-4" 
+    class="drawer-button btn btn-primary btn-ghost">
+
+      <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+    </svg>
 
 
-<Header/>
+  </label>
+  
 
-<div class="wrapper">
-
-  <Split splitterSize={splitter_size}>
-
-    <svelte:fragment slot="primary">
-      <Split horizontal splitterSize={splitter_size} >
-        <div slot="primary" class="h-full">
+</Header>
 
 
-          <CodeEditor/>
+<div class="drawer drawer-end">
+  <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content">
+    <!-- Page content here -->
 
 
-        </div>
-        <div slot="secondary">
+<Grid>
+  <CodeEditor slot="a"/>
 
-         <div class="tabs tabs-boxed">
-  <a class="tab">Tab 1</a> 
-  <a class="tab tab-active">Tab 2</a> 
-  <a class="tab">Tab 3</a>
-</div>
-
-
-
-
-        </div>
-      </Split>
-    </svelte:fragment>  
-
-    <svelte:fragment slot="secondary">
-      <Split horizontal splitterSize={splitter_size} >
-        <div slot="primary" class="h-full">
-
-
-          <DataFrame title="Expected"/>
-
-        </div>
-
-        <div slot="secondary" class="h-full">
-          <DataFrame title="Observed"/>
-
-
-        </div>
-      </Split>
-    </svelte:fragment>
-
-  </Split>
+  <LogBox slot="b" />
+  <DataFrame title="Observered" slot="c"/>
+  <DataFrame title="Expected" slot="d"/>
 
 
 
 
+</Grid>
+
+
+  </div> 
+  <div class="drawer-side">
+    <label for="my-drawer-4" class="drawer-overlay"></label>
+    <ul class="menu p-4 w-80 bg-base-100 text-base-content">
+      <!-- Sidebar content here -->
+      <li><a>Sidebar Item 1</a></li>
+      <li><a>Sidebar Item 2</a></li>
+    </ul>
+  </div>
 </div>
 <style>
 
 
- .wrapper {
 
-  height: 90vh;
-
-}
 </style>

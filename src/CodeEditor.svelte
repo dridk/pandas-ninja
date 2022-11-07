@@ -8,8 +8,17 @@
 
 
 <ToolBar>
-  <div class="flex">
+  <div class="flex justify-between">
     <h2>Code editor</h2>
+
+
+    <button class="btn gap-2 btn-xs btn-primary ">
+  Run
+ <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
+</svg>
+</button>
+
   </div>
 </ToolBar>
 
