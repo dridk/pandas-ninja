@@ -1,5 +1,5 @@
 <script lang="ts">
-	
+
 import ToolBar from "./ToolBar.svelte"
 
 export let title:string = "Noname";
@@ -8,20 +8,18 @@ export let title:string = "Noname";
 
 
 <ToolBar>
-	
-<div class="flex justify-between items-center">
-  
-  <h2 class="font-extrabold">{title}</h2>
 
-  
-<div class="flex items-center space-x-2"> 
-  <h2 class="text-sm font-light"> console </h2>
-  <input type="checkbox" class="toggle toggle-sm"  checked />
-</div>
+
+ <div class="flex justify-between items-center h-full p-4">
+
+  <h2>{title}</h2>
+
+  <input type="checkbox" class="toggle toggle-sm" checked />
 
 </div>
 
-   
+
+
 </ToolBar>
 
 

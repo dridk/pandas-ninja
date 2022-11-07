@@ -8,11 +8,11 @@
 
 
 <ToolBar>
-  <div class="flex justify-between">
+  <div class="flex justify-between items-center h-full p-4">
     <h2>Code editor</h2>
 
 
-    <button class="btn gap-2 btn-xs btn-primary ">
+    <button class="btn gap-2 btn-smbtn-primary btn-sm ">
   Run
  <svg style="width:24px;height:24px" viewBox="0 0 24 24">
     <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
@@ -43,6 +43,8 @@
     showLineNumbers:false,
     showGutter:false,
     enableBasicAutocompletion: true,
+    highlightActiveLine: false,
+    fontSize: 20
 
 
   }}
