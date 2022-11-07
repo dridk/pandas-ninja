@@ -9,7 +9,7 @@ import { Split, DefaultSplitter } from "@geoffcox/svelte-splitter"
 import CodeEditor from "./CodeEditor.svelte"
 
 
-import Perrine from "./Perrine.svelte"
+let splitter_size = "5px";
 
 </script>
 
@@ -20,10 +20,10 @@ import Perrine from "./Perrine.svelte"
 
 <div class="wrapper">
 
-  <Split splitterSize='1px'>
+  <Split splitterSize={splitter_size}>
 
     <svelte:fragment slot="primary">
-      <Split horizontal splitterSize='1px' >
+      <Split horizontal splitterSize={splitter_size} >
         <div slot="primary" class="h-full">
 
 
@@ -41,21 +41,22 @@ import Perrine from "./Perrine.svelte"
 
 
 
+
         </div>
       </Split>
     </svelte:fragment>  
 
     <svelte:fragment slot="secondary">
-      <Split horizontal splitterSize='1px' >
+      <Split horizontal splitterSize={splitter_size} >
         <div slot="primary" class="h-full">
 
 
-          <DataFrame/>
+          <DataFrame title="Expected"/>
 
         </div>
 
         <div slot="secondary" class="h-full">
-          <DataFrame/>
+          <DataFrame title="Observed"/>
 
 
         </div>

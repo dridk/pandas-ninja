@@ -1,18 +1,27 @@
-<script>
+<script lang="ts">
 	
 import ToolBar from "./ToolBar.svelte"
+
+export let title:string = "Noname";
 
 </script>
 
 
 <ToolBar>
 	
-<div class="form-control w-40">
-    <label class="cursor-pointer label">
-      <span class="label-text">Switch console </span> 
-      <input type="checkbox" class="toggle toggle-accent" checked />
-    </label>
-  </div>
+<div class="flex justify-between items-center">
+  
+  <h2 class="font-extrabold">{title}</h2>
+
+  
+<div class="flex items-center space-x-2"> 
+  <h2 class="text-sm font-light"> console </h2>
+  <input type="checkbox" class="toggle toggle-sm"  checked />
+</div>
+
+</div>
+
+   
 </ToolBar>
 
 

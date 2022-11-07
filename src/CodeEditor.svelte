@@ -2,13 +2,17 @@
   import { AceEditor } from "svelte-ace";
   import "brace/mode/python";
   import "brace/theme/cobalt";
+  import ToolBar from "./ToolBar.svelte"
   let text = "";
 </script>
 
 
-<nav class="bg-base-300 border-b-2 border-base-100 p-2">
-  sfs
-</nav>
+<ToolBar>
+  <div class="flex">
+    <h2>Code editor</h2>
+  </div>
+</ToolBar>
+
 
 <AceEditor
   on:selectionChange={(obj) => console.log(obj.detail)}
@@ -29,10 +33,24 @@
     showPrintMargin:false,
     showLineNumbers:false,
     showGutter:false,
-    enableBasicAutocompletion: true
+    enableBasicAutocompletion: true,
 
 
   }}
   lang="python"
   theme="cobalt"
   value={text} />
+
+
+
+  <style>
+    
+  
+  :global(.ace_content,.ace_scroller){
+
+      background-color: #2A303C;
+
+  }
+
+
+  </style>
