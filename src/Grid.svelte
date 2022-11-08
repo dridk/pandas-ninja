@@ -3,7 +3,7 @@
 import { Split, DefaultSplitter } from "@geoffcox/svelte-splitter"
 
 let splitter_size = "2px";
-let splitter_color = "gray";
+let splitter_color = "#3C404C";
 let splitter_active_color = "blue";
 
 </script>

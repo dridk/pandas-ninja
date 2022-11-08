@@ -10,22 +10,31 @@ import CodeEditor from "./CodeEditor.svelte"
 
 import Grid from "./Grid.svelte"
 
+let pyodide = null;
+
+async function main() {
+  pyodide = await loadPyodide();
+  // Pyodide is now ready to use...
+  console.log(pyodide.runPython(`
+    import sys
+    sys.version
+    `));
+};
+
 
 </script>
 
 
-<Header>
 
-  
-    <label for="my-drawer-4" 
-    class="drawer-button btn btn-accent text-black btn-ghost font-medium gap-2">
+<svelte:head>
 
-    Challenge 1
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js" on:load={main}></script>
 
-  </label>
-  
 
-</Header>
+</svelte:head>
+
+
+
 
 
 <div class="drawer drawer-end">
@@ -34,29 +43,104 @@ import Grid from "./Grid.svelte"
     <!-- Page content here -->
 
 
-<Grid>
-  <CodeEditor slot="a"/>
-
-  <LogBox slot="b" />
-  <DataFrame title="Observered" slot="c"/>
-  <DataFrame title="Expected" slot="d"/>
+<Header loading={pyodide == null}>
 
 
 
+  <label for="my-drawer-4" 
+  class="drawer-button btn btn-accent text-black btn-ghost font-medium gap-2">
 
-</Grid>
+  Challenge 1
+
+</label>
+
+
+</Header>
+    <Grid>
+      <CodeEditor slot="a"/>
+
+      <LogBox slot="b" />
+      <DataFrame title="Observered" slot="c"/>
+      <DataFrame title="Expected" slot="d"/>
+
+
+
+
+    </Grid>
+
+    
 
 
   </div> 
   <div class="drawer-side">
     <label for="my-drawer-4" class="drawer-overlay"></label>
-    <ul class="menu p-4 w-80 bg-base-100 text-base-content">
-      <!-- Sidebar content here -->
-      <li><a>Sidebar Item 1</a></li>
-      <li><a>Sidebar Item 2</a></li>
+
+
+    <ul class="menu bg-base-100 w-80 p-2 rounded-box">
+
+
+<input type="text" placeholder="Type here" class="input input-bordered input-primary w-full max-w-xs" />
+      <li class="menu-title">
+        <span>Easy</span>
+      </li>
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+      <li class="menu-title">
+        <span>Medium</span>
+      </li>
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+
+      <li class="menu-title">
+        <span>Hard</span>
+      </li>
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+
+
     </ul>
+
+
   </div>
+
+
+
 </div>
+
+
 <style>
 
 
