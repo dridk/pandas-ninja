@@ -3,7 +3,21 @@
   import "brace/mode/python";
   import "brace/theme/cobalt";
   import ToolBar from "./ToolBar.svelte"
-  let text = "";
+
+
+
+
+
+  let text = localStorage.getItem("name")
+
+
+  function save() {
+
+    console.debug(text);
+    localStorage.setItem("name", text);
+
+  }
+
 </script>
 
 
@@ -12,7 +26,7 @@
     <h2>Code editor</h2>
 
 
-    <button class="btn btn-primary btn-xs ">
+    <button on:click={save} class="btn btn-primary btn-xs ">
   Run
  <svg style="width:16px;height:16px" viewBox="0 0 24 24">
     <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
@@ -50,7 +64,8 @@
   }}
   lang="python"
   theme="cobalt"
-  value={text} />
+  bind:value={text}
+   />
 
 
 

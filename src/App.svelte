@@ -7,7 +7,7 @@ import DataFrame from "./DataFrame.svelte"
 import LogBox from "./LogBox.svelte"
 
 import CodeEditor from "./CodeEditor.svelte"
-
+import YouWin from "./YouWin.svelte"
 import Grid from "./Grid.svelte"
 
 let pyodide = null;
@@ -44,31 +44,25 @@ async function main() {
 
 
 <Header loading={pyodide == null}>
-
-
-
   <label for="my-drawer-4" 
   class="drawer-button btn btn-accent text-black btn-ghost font-medium gap-2">
-
   Challenge 1
-
 </label>
 
-
 </Header>
+
+<YouWin/>
+
+
     <Grid>
       <CodeEditor slot="a"/>
-
       <LogBox slot="b" />
       <DataFrame title="Observered" slot="c"/>
       <DataFrame title="Expected" slot="d"/>
-
-
-
-
     </Grid>
 
     
+
 
 
   </div> 
