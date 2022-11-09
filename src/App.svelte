@@ -14,8 +14,17 @@ import ChallengeList from "./ChallengeList.svelte"
 
 let pyodide = null;
 let loading = true;
-
 let console_output = ""
+
+// Challenges 
+let challenges = [];
+let current_challenge = undefined;
+
+$:current_index=undefined;
+$:current_title = get_challenge(current_index)?.title ;
+$:current_index && load_challenge();
+
+
 
 
 //=========================================
@@ -27,9 +36,19 @@ function append_console(text:string)
 }
 
 //=========================================
+function get_challenge(index){
+
+  if (index < challenges.length) {
+    return challenges[index];
+  }
+  return undefined;
+}
+
+//=========================================
 async function main() {
 
-  loading = true;
+
+/*  loading = true;
   pyodide = await loadPyodide({
 
     stdout: (text:string) => append_console(text),
@@ -49,14 +68,22 @@ async function main() {
   pyodide.runPython(`import pandas as pd `);
 
   console.log("Pandas loaded")
-  loading = false;
-};
+  loading = false;*/
+
+  // Chargement des challenges 
+
+  console.log("Truc")
+  load_challenges();
+
+
+
+}
 
 //=========================================
 
 async function run_code(event) {
 
-try {
+  try {
     // Run code 
     let result = pyodide.runPython(event.detail.code);
     console.debug(result);
@@ -75,12 +102,53 @@ try {
 
 async function load_challenges(){
 
- 
-    const octokit = new Octokit()
-    const data = await octokit.request('GET /repos/dridk/pandas-ninja/contents/challenges')
-    console.debug(data);
+ console.log("Load challenges");
+
+ let response = await fetch("challenges.json");
+ response.json().then((el)=>{
+
+
+  challenges = el["data"];
+
+  current_index = 0;
+
+})
+
 
 }
+
+// ======================================
+
+async function load_challenge()
+{
+
+  let file = get_challenge(current_index).file 
+
+  let response = await fetch(`challenges/${file}`);
+  response.json().then((el)=>{
+
+    current_challenge = el;
+    console.debug(current_challenge);
+
+  })
+
+
+}
+
+//======================================
+
+function next_level(){
+  if (current_index < challenges.length -1 ) {
+    current_index = current_index + 1;
+  }
+}
+
+function previous_level(){
+  if (current_index > 0 ) {
+    current_index = current_index - 1;
+  }
+}
+
 
 
 
@@ -90,8 +158,8 @@ async function load_challenges(){
 
 <svelte:head>
 
-<!--   <script src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js" on:load={main}></script>
--->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js" on:load={main}></script>
+
 
 </svelte:head>
 
@@ -102,27 +170,32 @@ async function load_challenges(){
 
 
 
-    <Header loading={loading}>
-      <label for="my-drawer-4" 
-      class="drawer-button btn btn-accent text-black btn-ghost font-medium gap-2">
-      Challenge 1
-    </label>
+    <Header
+    on:left = {previous_level}
+    on:right = {next_level}
+    title = {current_title}
+    >
+    <label for="my-drawer-4" 
+    class="drawer-button btn btn-accent text-black btn-ghost font-medium gap-2">
+    Challenge {current_index+1}
 
-  </Header>
+  </label>
+
+</Header>
 
 
-  <Grid>
-    <CodeEditor slot="a" on:run = {run_code}/>
-    <Console bind:code={console_output} slot="b" />
-    <DataFrame title="Observered" slot="c"/>
-    <DataFrame title="Expected" slot="d"/>
-  </Grid>
+<Grid>
+  <CodeEditor slot="a" on:run = {run_code} code = {current_challenge?.placeholder}/>
+  <Console bind:code={console_output} slot="b" />
+  <DataFrame title="Input Data" slot="c" data={current_challenge?.expected}/>
+  <DataFrame title="Expected Data" slot="d" data={current_challenge?.input}/>
+</Grid>
 
-  
+
 
 </div> 
 
-<ChallengeList/>
+<ChallengeList bind:current_index={current_index} challenges={challenges}  />
 
 
 

@@ -1,0 +1,53 @@
+{
+  "title": "simple sort",
+  "author": "@dridk",
+  "placeholder": "#Create a new dataFrame ",
+  "input": [
+    {
+      "count": 1111,
+      "fruits": "apple",
+      "truc": 24,
+      "tralaa": "sdsf"
+    },
+    {
+      "count": 4,
+      "fruits": "banana",
+      "truc": 24,
+      "tralaa": "sdsf"
+    },
+    {
+      "count": 1,
+      "fruits": "cherry",
+      "truc": 24,
+      "tralaa": "sdsf"
+    },
+    {
+      "count": 5,
+      "fruits": "orange",
+      "truc": 24,
+      "tralaa": "sdsf"
+    }
+  ],
+  "expected": [
+    {
+      "count": 1,
+      "fruits": "cherry",
+      "dsfsf": 423423
+    },
+    {
+      "count": 2,
+      "fruits": "apple",
+      "dsfsf": 423423
+    },
+    {
+      "count": 4,
+      "fruits": "banana",
+      "dsfsf": 423423
+    },
+    {
+      "count": 5,
+      "fruits": "orange",
+      "dsfsf": 423423
+    }
+  ]
+}

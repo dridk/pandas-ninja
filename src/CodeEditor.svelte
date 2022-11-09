@@ -9,7 +9,7 @@
 
   const dispatch = createEventDispatcher();
 
-  let code = ""
+  export let code = ""
 
 
 

@@ -1,0 +1,35 @@
+{
+	"data":[
+
+		{
+			"title": "simple sort",
+			"file":"simple_sort.json",
+			"level":"easy"
+		},
+
+		{
+			"title": "Piece of cake",
+			"file":"simple_sort2.json",
+			"level":"easy"
+		},
+		{
+			"title": "Ca va ",
+			"file":"simple_sort2.json",
+			"level":"medium"
+		},
+		{
+			"title": "Fait mal au trou de bal",
+			"file":"simple_sort.json",
+			"level":"hard"
+		},
+		{
+			"title": "Hyper Dur ",
+			"file":"simple_sort.json",
+			"level":"hard"
+		}
+
+	]
+}
+
+
+
