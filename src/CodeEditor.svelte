@@ -5,18 +5,24 @@
   import ToolBar from "./ToolBar.svelte"
 
 
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
+
+  let code = ""
 
 
 
-  let text = localStorage.getItem("name")
+function emit_run(event) {
+
+  dispatch("run", {
+    code : code
+  });
 
 
-  function save() {
+}
 
-    console.debug(text);
-    localStorage.setItem("name", text);
 
-  }
 
 </script>
 
@@ -26,11 +32,9 @@
     <h2>Code editor</h2>
 
 
-    <button on:click={save} class="btn btn-primary btn-xs ">
+    <button on:click={emit_run} class="btn btn-primary btn-xs ">
   Run
- <svg style="width:16px;height:16px" viewBox="0 0 24 24">
-    <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
-</svg>
+
 </button>
 
   </div>
@@ -38,24 +42,13 @@
 
 
 <AceEditor
-  on:selectionChange={(obj) => console.log(obj.detail)}
-  on:paste={(obj) => console.log(obj.detail)}
-  on:input={(obj) => console.log(obj.detail)}
-  on:focus={() => console.log('focus')}
-  on:documentChange={(obj) => console.log(`document change : ${obj.detail}`)}
-  on:cut={() => console.log('cut')}
-  on:cursorChange={() => console.log('cursor change')}
-  on:copy={() => console.log('copy')}
-  on:init={(editor) => console.log(editor.detail)}
-  on:commandKey={(obj) => console.log(obj.detail)}
-  on:changeMode={(obj) => console.log(`change mode : ${obj.detail}`)}
-  on:blur={() => console.log('blur')}
+
   width='100%'
   height='100%'
   options={{
     showPrintMargin:false,
-    showLineNumbers:false,
-    showGutter:false,
+    showLineNumbers:true,
+    showGutter:true,
     enableBasicAutocompletion: true,
     highlightActiveLine: false,
     fontSize: 20
@@ -64,7 +57,7 @@
   }}
   lang="python"
   theme="cobalt"
-  bind:value={text}
+  bind:value={code}
    />
 
 
@@ -72,7 +65,7 @@
   <style>
     
   
-  :global(.ace_content,.ace_scroller){
+  :global(.ace_content,.ace_scroller, .ace_gutter-layer){
 
       background-color: #2A303C;
 

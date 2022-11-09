@@ -27,6 +27,7 @@
     "@geoffcox/svelte-splitter": "^1.0.1",
     "daisyui": "^2.38.1",
     "monaco-editor": "^0.34.1",
+    "octokit": "^2.0.10",
     "svelte-ace": "^1.0.21"
   }
 }

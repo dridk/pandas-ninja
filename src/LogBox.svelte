@@ -1,7 +1,11 @@
 
 
+<script>
+  
+import Console from "./Console.svelte"
 
-<div class="tabs tabs-boxed">
-  <a class="tab">Console</a> 
-  <a class="tab tab-active">Error</a> 
-</div>
+
+</script>
+
+
+<Console/>
