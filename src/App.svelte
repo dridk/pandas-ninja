@@ -1,5 +1,7 @@
 
 <script lang="ts">
+
+import { onMount } from 'svelte';
 import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
 import Header from "./Header.svelte"
 import ToolBar from "./ToolBar.svelte"
@@ -20,9 +22,10 @@ let console_output = ""
 let challenges = [];
 let current_challenge = undefined;
 
-$:current_index=undefined;
+$:current_index = undefined;
 $:current_title = get_challenge(current_index)?.title ;
-$:current_index && load_challenge();
+$:current_level = get_challenge(current_index)?.level ;
+$:current_index && load_challenge(current_index);
 
 
 
@@ -45,10 +48,12 @@ function get_challenge(index){
 }
 
 //=========================================
-async function main() {
 
 
-/*  loading = true;
+async function load_python() 
+{
+
+  loading = true;
   pyodide = await loadPyodide({
 
     stdout: (text:string) => append_console(text),
@@ -68,13 +73,18 @@ async function main() {
   pyodide.runPython(`import pandas as pd `);
 
   console.log("Pandas loaded")
-  loading = false;*/
 
-  // Chargement des challenges 
+  loading = false;
+
+}
+//=========================================
+
+async function main() {
 
   console.log("Truc")
   load_challenges();
 
+  loading = false;
 
 
 }
@@ -109,8 +119,8 @@ async function load_challenges(){
 
 
   challenges = el["data"];
+  current_index = 4;
 
-  current_index = 0;
 
 })
 
@@ -119,16 +129,21 @@ async function load_challenges(){
 
 // ======================================
 
-async function load_challenge()
+async function load_challenge(index)
 {
 
-  let file = get_challenge(current_index).file 
+  console.log("FIRST LOAD ", index)
+
+  let file = get_challenge(index)?.file; 
+
+  console.debug(file, challenges)
+
 
   let response = await fetch(`challenges/${file}`);
   response.json().then((el)=>{
 
     current_challenge = el;
-    console.debug(current_challenge);
+
 
   })
 
@@ -151,6 +166,8 @@ function previous_level(){
 
 
 
+onMount(main);
+
 
 </script>
 
@@ -158,7 +175,7 @@ function previous_level(){
 
 <svelte:head>
 
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js" on:load={main}></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js"  ></script>
 
 
 </svelte:head>
@@ -174,6 +191,8 @@ function previous_level(){
     on:left = {previous_level}
     on:right = {next_level}
     title = {current_title}
+    level = {current_level}
+    loading = {loading}
     >
     <label for="my-drawer-4" 
     class="drawer-button btn btn-accent text-black btn-ghost font-medium gap-2">

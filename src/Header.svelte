@@ -6,13 +6,14 @@
   let code = ""
   export let loading = false;
   export let title = "Sort by value by first column";
+  export let level = "unknown";
 
   function emit_left_clicked(event) {
-        dispatch('left', {});
+    dispatch('left', {});
   }
 
-    function emit_right_clicked(event) {
-        dispatch('right', {});
+  function emit_right_clicked(event) {
+    dispatch('right', {});
   }
   
 </script>
@@ -42,7 +43,10 @@
 
 {:else}
 
-<h1 class="text-2xl text-base-300 font-light">{title}</h1>
+<div class="flex gap-2">
+  <h1 class="text-2xl text-base-300 font-light">{title}</h1>
+  <p>({level})</p>
+</div>
 
 
 {/if}
