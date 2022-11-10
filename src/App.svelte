@@ -1,183 +1,195 @@
-
 <script lang="ts">
+  import { onMount } from "svelte";
+  import Header from "./Header.svelte";
+  import ToolBar from "./ToolBar.svelte";
+  import DataFrame from "./DataFrame.svelte";
+  import LogBox from "./LogBox.svelte";
 
-import { onMount } from 'svelte';
-import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
-import Header from "./Header.svelte"
-import ToolBar from "./ToolBar.svelte"
-import DataFrame from "./DataFrame.svelte"
-import LogBox from "./LogBox.svelte"
+  import CodeEditor from "./CodeEditor.svelte";
+  import YouWin from "./YouWin.svelte";
+  import Grid from "./Grid.svelte";
+  import Console from "./Console.svelte";
+  import ChallengeList from "./ChallengeList.svelte";
 
-import CodeEditor from "./CodeEditor.svelte"
-import YouWin from "./YouWin.svelte"
-import Grid from "./Grid.svelte"
-import Console from "./Console.svelte"
-import ChallengeList from "./ChallengeList.svelte"
+  /** ======================
+   *      Interface
+   *========================
+   */
 
-let pyodide = null;
-let loading = true;
-let console_output = ""
-
-// Challenges 
-let challenges = [];
-let current_challenge = undefined;
-
-$:current_index = undefined;
-$:current_title = get_challenge(current_index)?.title ;
-$:current_level = get_challenge(current_index)?.level ;
-$:current_index && load_challenge(current_index);
-
-
-
-
-//=========================================
-function append_console(text:string)
-{
-
-  console_output = console_output + "\n"+  text;
-
-}
-
-//=========================================
-function get_challenge(index){
-
-  if (index < challenges.length) {
-    return challenges[index];
-  }
-  return undefined;
-}
-
-//=========================================
-
-
-async function load_python() 
-{
-
-  loading = true;
-  pyodide = await loadPyodide({
-
-    stdout: (text:string) => append_console(text),
-    stderr: (text:string)=> append_console(text)
-
-  });
-  // Pyodide is now ready to use...
-  console.log(pyodide.runPython(`
-    import sys
-    sys.version
-    `));
-
-  // Load Pandas 
-  await pyodide.loadPackage(["pandas"]);
-
-  // import pandas.. It takes times 
-  pyodide.runPython(`import pandas as pd `);
-
-  console.log("Pandas loaded")
-
-  loading = false;
-
-}
-//=========================================
-
-async function main() {
-
-  console.log("Truc")
-  load_challenges();
-
-  loading = false;
-
-
-}
-
-//=========================================
-
-async function run_code(event) {
-
-  try {
-    // Run code 
-    let result = pyodide.runPython(event.detail.code);
-    console.debug(result);
-
-  }
-  catch (err)
-  {
-    let message = ((err as Error).message);
-    console.debug(message)
-    append_console(message)
+  // Challenge List Item
+  interface ChallengeListItem {
+    title: string;
+    file: string;
+    level: string;
+    age: string;
   }
 
-
-}
-//=========================================
-
-async function load_challenges(){
-
- console.log("Load challenges");
-
- let response = await fetch("challenges.json");
- response.json().then((el)=>{
-
-
-  challenges = el["data"];
-  current_index = 4;
-
-
-})
-
-
-}
-
-// ======================================
-
-async function load_challenge(index)
-{
-
-  console.log("FIRST LOAD ", index)
-
-  let file = get_challenge(index)?.file; 
-
-  console.debug(file, challenges)
-
-
-  let response = await fetch(`challenges/${file}`);
-  response.json().then((el)=>{
-
-    current_challenge = el;
-
-
-  })
-
-
-}
-
-//======================================
-
-function next_level(){
-  if (current_index < challenges.length -1 ) {
-    current_index = current_index + 1;
+  // Challenge object
+  interface Challenge {
+    title: string;
+    author: string;
+    placeholder?: string;
+    input: Array<Object>;
+    expected: Array<Object>;
   }
-}
 
-function previous_level(){
-  if (current_index > 0 ) {
-    current_index = current_index - 1;
+  /** ======================
+   *      Variables
+   *========================
+   */
+
+  let challengeList: ChallengeListItem[] = [];
+  let challengeListIndex: number;
+  let currentChallenge: Challenge;
+
+  $: current_title = getChallengeListItem(challengeListIndex)?.title;
+  $: current_level = getChallengeListItem(challengeListIndex)?.level;
+
+  let pyodide: any = null;
+  let loading: boolean = true;
+  let consoleOutput: string;
+  let code: string;
+
+  let computed_input: any = [];
+
+  /** ======================
+   *      Functions
+   *========================
+   */
+
+  // Append text to console
+  function appendConsole(text: string): void {
+    consoleOutput = consoleOutput + "\n" + text;
   }
-}
 
+  // Clear console
+  function clearConsole() {
+    consoleOutput = "";
+  }
 
+  // Load challenges list
+  async function loadChallengeList() {
+    console.log("Load challenges List ");
 
-onMount(main);
+    let response = await fetch("challenges.json");
+    let el = await response.json();
 
+    challengeList = el["data"];
+    challengeListIndex = 4;
 
+    await loadChallenge(challengeListIndex);
+
+    return challengeList;
+  }
+
+  async function loadChallenge(index: number) {
+    let file = getChallengeListItem(index)?.file;
+    console.debug(file, challengeList);
+    let response = await fetch(`challenges/${file}`);
+
+    let el: Challenge = await response.json();
+
+    currentChallenge = el;
+    code = currentChallenge.placeholder || "";
+
+    runCode();
+
+    return el;
+  }
+
+  // Get a challengeListItem from index
+  function getChallengeListItem(index: number): ChallengeListItem {
+    if (index < challengeList.length) {
+      return challengeList[index];
+    }
+    return undefined;
+  }
+
+  // Load Python
+  async function loadPython() {
+    loading = true;
+    pyodide = await loadPyodide({
+      stdout: (text: string) => appendConsole(text),
+      stderr: (text: string) => appendConsole(text),
+    });
+    // Pyodide is now ready to use...
+    console.log(
+      pyodide.runPython(`
+      import sys
+      sys.version
+      `)
+    );
+
+    // Load Pandas
+    await pyodide.loadPackage(["pandas"]);
+
+    // import pandas.. It takes times
+    pyodide.runPython(`import pandas as pd `);
+
+    console.log("Pandas loaded");
+
+    await loadChallengeList();
+
+    loading = false;
+  }
+
+  // Init function
+  async function main() {
+    console.log("Truc");
+  }
+
+  // run Code
+  function runCode() {
+    try {
+      // Move JS code to Python
+      clearConsole();
+      pyodide.globals.set("raw_input", currentChallenge.input);
+
+      // build pre-code and post-code
+      const start_code = `import js\nimport ast\ndf = pd.DataFrame(raw_input.to_py())`;
+      const end_code = `df = df.to_dict(orient="records")`;
+      const intro_code = `line_number=len(ast.parse("""${code}""").body)`;
+
+      // build all code
+      let all_code =
+        start_code + "\n" + code + "\n" + end_code + "\n" + intro_code;
+
+      // run all_code
+      pyodide.runPython(all_code);
+
+      // get results
+      let json_result = pyodide.globals.get("df");
+      let line_number = pyodide.globals.get("line_number");
+      computed_input = json_result.toJs({ dict_converter: Object.fromEntries });
+    } catch (err) {
+      let message = (err as Error).message;
+      console.debug(message);
+      appendConsole(message);
+    }
+  }
+
+  // Next Level
+  function nextLevel() {
+    if (challengeListIndex < challengeList.length - 1) {
+      challengeListIndex = challengeListIndex + 1;
+      loadChallenge(challengeListIndex);
+    }
+  }
+
+  // Previous level
+  function previousLevel() {
+    if (challengeListIndex > 0) {
+      challengeListIndex = challengeListIndex - 1;
+      loadChallenge(challengeListIndex);
+    }
+  }
 </script>
 
-
-
 <svelte:head>
-
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js"  ></script>
-
-
+  <script
+    src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js"
+    on:load={loadPython}
+  ></script>
 </svelte:head>
 
 <div class="drawer drawer-end">
@@ -185,44 +197,38 @@ onMount(main);
   <div class="drawer-content ">
     <!-- Page content here -->
 
-
-
     <Header
-    on:left = {previous_level}
-    on:right = {next_level}
-    title = {current_title}
-    level = {current_level}
-    loading = {loading}
+      on:left={previousLevel}
+      on:right={nextLevel}
+      title={current_title}
+      level={current_level}
+      {loading}
     >
-    <label for="my-drawer-4" 
-    class="drawer-button btn btn-accent text-black btn-ghost font-medium gap-2">
-    Challenge {current_index+1}
+      <label
+        for="my-drawer-4"
+        class="drawer-button btn btn-accent text-black btn-ghost font-medium gap-2"
+      >
+        Challenge {challengeListIndex + 1}
+      </label>
+    </Header>
 
-  </label>
+    <Grid>
+      <CodeEditor slot="a" on:run={runCode} bind:code />
+      <Console bind:code={consoleOutput} slot="b" />
+      <DataFrame title="Input Data" slot="c" data={computed_input} />
+      <DataFrame
+        title="Expected Data"
+        slot="d"
+        data={currentChallenge?.input}
+      />
+    </Grid>
+  </div>
 
-</Header>
-
-
-<Grid>
-  <CodeEditor slot="a" on:run = {run_code} code = {current_challenge?.placeholder}/>
-  <Console bind:code={console_output} slot="b" />
-  <DataFrame title="Input Data" slot="c" data={current_challenge?.expected}/>
-  <DataFrame title="Expected Data" slot="d" data={current_challenge?.input}/>
-</Grid>
-
-
-
-</div> 
-
-<ChallengeList bind:current_index={current_index} challenges={challenges}  />
-
-
-
+  <ChallengeList
+    bind:current_index={challengeListIndex}
+    challenges={challengeList}
+  />
 </div>
 
-
 <style>
-
-
-
 </style>
