@@ -1,35 +1,19 @@
 {
-	"data":[
-
+	"data": [
 		{
-			"title": "simple sort",
-			"file":"simple_sort.json",
-			"level":"easy"
-		},
-
-		{
-			"title": "Piece of cake",
-			"file":"simple_sort2.json",
-			"level":"easy"
+			"title": "Simple sort",
+			"file": "simple_sort.json",
+			"level": "easy"
 		},
 		{
-			"title": "Ca va ",
-			"file":"simple_sort2.json",
-			"level":"medium"
+			"title": "Explode",
+			"file": "explode.json",
+			"level": "medium"
 		},
 		{
-			"title": "Fait mal au trou de bal",
-			"file":"simple_sort.json",
-			"level":"hard"
-		},
-		{
-			"title": "Hyper Dur ",
-			"file":"simple_sort.json",
-			"level":"hard"
+			"title": "get dummies",
+			"file": "get_dummies.json",
+			"level": "hard"
 		}
-
 	]
 }
-
-
-

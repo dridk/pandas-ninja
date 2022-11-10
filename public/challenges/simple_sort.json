@@ -1,10 +1,10 @@
 {
-  "title": "simple sort",
+  "title": "simplesort",
   "author": "@dridk",
-  "placeholder": "#TRUDSFSDF\n#ZEZERZRZR\n#dfsfsfsf ",
+  "placeholder": "#Sort rows by first column\nprint(df)",
   "input": [
     {
-      "count": 1111,
+      "count": 2,
       "fruits": "apple"
     },
     {

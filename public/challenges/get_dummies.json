@@ -1,0 +1,59 @@
+{
+  "title": "get dummies",
+  "author": "@dridk",
+  "placeholder": "# Convert categorical variable\n#into dummy variables\n\nprint(df) ",
+  "input": [
+    {
+      "fruits": "apple"
+    },
+    {
+      "fruits": "orange"
+    },
+    {
+      "fruits": "melon"
+    },
+    {
+      "fruits": "tomatoe"
+    },
+    {
+      "fruits": "cherry"
+    }
+  ],
+  "expected": [
+    {
+      "fruits_apple": 1,
+      "fruits_cherry": 0,
+      "fruits_melon": 0,
+      "fruits_orange": 0,
+      "fruits_tomatoe": 0
+    },
+    {
+      "fruits_apple": 0,
+      "fruits_cherry": 0,
+      "fruits_melon": 0,
+      "fruits_orange": 1,
+      "fruits_tomatoe": 0
+    },
+    {
+      "fruits_apple": 0,
+      "fruits_cherry": 0,
+      "fruits_melon": 1,
+      "fruits_orange": 0,
+      "fruits_tomatoe": 0
+    },
+    {
+      "fruits_apple": 0,
+      "fruits_cherry": 0,
+      "fruits_melon": 0,
+      "fruits_orange": 0,
+      "fruits_tomatoe": 1
+    },
+    {
+      "fruits_apple": 0,
+      "fruits_cherry": 1,
+      "fruits_melon": 0,
+      "fruits_orange": 0,
+      "fruits_tomatoe": 0
+    }
+  ]
+}
