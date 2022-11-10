@@ -25,7 +25,7 @@ npm run dev
 
 I invite you to create challenges and share them by making a pull request.    
 A challenge is defined as a json file with an input and an expected table. 
-All challenges are stored in [ublic/challenges/](https://github.com/dridk/pandas-ninja/blob/main/public/challenges/). 
+All challenges are stored in [public/challenges/](https://github.com/dridk/pandas-ninja/blob/main/public/challenges/). 
 
 ## Examples 
 
