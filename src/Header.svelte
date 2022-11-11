@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Badge from "./Badge.svelte";
   import ValidIcon from "./ValidIcon.svelte";
 
@@ -7,8 +7,14 @@
 
   let code = "";
   export let loading = false;
-  export let title = "Sort by value by first column";
-  export let level = "unknown";
+  export let title: string;
+  export let level: string;
+  export let file: string;
+
+  function isSuccess(file: string): boolean {
+    console.debug("the file", file);
+    return localStorage.getItem(file) === null ? false : true;
+  }
 
   function emit_left_clicked(event) {
     dispatch("left", {});
@@ -41,6 +47,7 @@
     <h2 class="text-base font-medium">Loading ...</h2>
   {:else}
     <div class="flex gap-2">
+      <ValidIcon active={isSuccess(file)} />
       <h1 class="text-xl uppercase text-base-300 font-semibold">{title}</h1>
       <Badge {level} />
     </div>

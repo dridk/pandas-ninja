@@ -29,11 +29,16 @@
     </div>
 
     <div>
-      <button
-        use:shortcut={{ shift: true, code: "Space" }}
-        on:click={emit_run}
-        class="btn btn-primary btn-xs ">Run</button
+      <div
+        class="tooltip hover:tooltip-open tooltip-secondary tooltip-left z-40 sticky "
+        data-tip="Run the code"
       >
+        <button
+          use:shortcut={{ shift: true, code: "Space" }}
+          on:click={emit_run}
+          class="btn btn-primary btn-sm ">Run</button
+        >
+      </div>
     </div>
   </div>
 </ToolBar>

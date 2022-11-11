@@ -244,6 +244,7 @@
       on:right={nextLevel}
       title={current_title}
       level={current_level}
+      file={current_file}
       {loading}
     >
       <label
@@ -268,12 +269,12 @@
         data={currentChallenge?.expected}
       />
     </Grid>
-
-    <div class="flex flex-row-reverse ">
-      <p class=" text-xs px-4 text-neutral-content">
-        @dridk & @SteampunkIsland
-      </p>
-    </div>
+    <p
+      class="font-mono text-xs text-right bg-base-300 pt-1  border-t-2 border-base-300 px-2"
+    >
+      Created by <a href="https://github.com/dridk">@dridk</a> &
+      <a href="https://github.com/SteampunkIslande">@SteampunkIslande</a>
+    </p>
   </div>
 
   <ChallengeList
