@@ -16,12 +16,12 @@ echo > .nojekyll
 # echo 'www.example.com' > CNAME
 
 git init
-git checkout -B svelte
+git checkout -B main 
 git add -A
 git commit -m 'deploy'
 
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
- git push -f git@github.com:dridk/pandas-ninja.git svelte:gh-pages
+ git push -f git@github.com:dridk/pandas-ninja.git main:gh-pages
 
 cd -
