@@ -274,6 +274,7 @@
     >
       Created by <a href="https://github.com/dridk">@dridk</a> &
       <a href="https://github.com/SteampunkIslande">@SteampunkIslande</a>
+      {__APP_VERSION__}
     </p>
   </div>
 
