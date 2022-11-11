@@ -24,58 +24,56 @@
   }
 </script>
 
-<div class="drawer-side ">
-  <label for="my-drawer-4" class="drawer-overlay" />
+<label for="my-drawer-4" class="drawer-overlay" />
 
-  <div class="menu bg-base-100 w-80 p-2">
-    <div class="tabs tabs-boxed ">
-      {#each levels as level}
-        <a
-          href="#"
-          on:click={() => (level_filter = level)}
-          class="tab tab-lifted {level_filter === level
-            ? 'tab-active'
-            : ''} w-1/3">{level}</a
-        >
-      {/each}
-    </div>
-
-    <ul class="menu bg-base-100 w-full mt-5 ">
-      {#each challenges as { title, file, level }, i}
-        {#if level_filter == level}
-          <li>
-            <a
-              on:click={() => (current_index = i)}
-              class="{current_index == i
-                ? 'active'
-                : ''} flex justify-between w-full"
-            >
-              <!-- Element left -->
-              <div>
-                <h1 class="text-3xl font-light text-center">
-                  {i + 1}
-                </h1>
-              </div>
-
-              <!-- Element center -->
-
-              <div class="flex gap-3 flex-grow ml-4 ">
-                <div class="flex flex-col justify-center items-left ">
-                  <a class="text-slate-100 "> {title}</a>
-
-                  <Rating size="20" score={getRating(file)} />
-                </div>
-              </div>
-
-              <!-- Element right-->
-
-              <div>
-                <Badge {level} />
-              </div>
-            </a>
-          </li>
-        {/if}
-      {/each}
-    </ul>
+<div class="menu bg-base-100 w-80 p-2">
+  <div class="tabs tabs-boxed ">
+    {#each levels as level}
+      <a
+        href="#"
+        on:click={() => (level_filter = level)}
+        class="tab tab-lifted {level_filter === level
+          ? 'tab-active'
+          : ''} w-1/3">{level}</a
+      >
+    {/each}
   </div>
+
+  <ul class="menu bg-base-100 w-full mt-5 ">
+    {#each challenges as { title, file, level }, i}
+      {#if level_filter == level}
+        <li>
+          <a
+            on:click={() => (current_index = i)}
+            class="{current_index == i
+              ? 'active'
+              : ''} flex justify-between w-full"
+          >
+            <!-- Element left -->
+            <div>
+              <h1 class="text-3xl font-light text-center">
+                {i + 1}
+              </h1>
+            </div>
+
+            <!-- Element center -->
+
+            <div class="flex gap-3 flex-grow ml-4 ">
+              <div class="flex flex-col justify-center items-left ">
+                <a class="text-slate-100 "> {title}</a>
+
+                <Rating size="20" score={getRating(file)} />
+              </div>
+            </div>
+
+            <!-- Element right-->
+
+            <div>
+              <Badge {level} />
+            </div>
+          </a>
+        </li>
+      {/if}
+    {/each}
+  </ul>
 </div>

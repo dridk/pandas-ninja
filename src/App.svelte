@@ -7,10 +7,12 @@
   import Badge from "./Badge.svelte";
 
   import CodeEditor from "./CodeEditor.svelte";
-  import YouWin from "./YouWin.svelte";
   import Grid from "./Grid.svelte";
   import Console from "./Console.svelte";
   import ChallengeList from "./ChallengeList.svelte";
+  import Drawer from "./Drawer.svelte";
+  import VictoryDialog from "./VictoryDialog.svelte";
+  import LoadingDialog from "./LoadingDialog.svelte";
   import Loading from "./Loading.svelte";
 
   /** ======================
@@ -67,13 +69,16 @@
   let loading: boolean = true;
 
   // Loading message
-  let loadingMessage: string;
+  let loadingMessage: string = "Loading your Sensei";
 
   // display Win modal box
   let won: boolean = false;
 
   // Win score
   let score: number = 0;
+
+  // Drawer pen
+  let show_drawer: boolean = false;
 
   // Computed dataframe
   let computed_input: any = [];
@@ -106,6 +111,8 @@
   // ------------------------------------------------------
   async function loadChallenges() {
     console.log("Load challenges List ");
+    loadingMessage = "Loading Challenges";
+
     challenges = [];
     try {
       let response = await fetch("challenges.json");
@@ -123,6 +130,12 @@
     if (index < challenges.length) {
       return challenges[index];
     }
+  }
+  // ------------------------------------------------------
+  // set a Challenge from index
+  // ------------------------------------------------------
+  function setChallenge(index: number): void {
+    challengeIndex = index;
   }
   // ------------------------------------------------------
   // Load a Challenge detail from specific index
@@ -152,6 +165,9 @@
   // ------------------------------------------------------
   async function loadPython() {
     loading = true;
+
+    loadingMessage = "Loading Pyodide script ...";
+
     pyodide = await loadPyodide({
       stdout: (text: string) => appendConsole(text),
       stderr: (text: string) => appendConsole(text),
@@ -166,6 +182,7 @@
     appendConsole(python_version);
 
     // Load Pandas
+    loadingMessage = "Loading Pandas";
     await pyodide.loadPackage(["pandas"]);
 
     // import pandas.. It takes times
@@ -257,6 +274,7 @@
       loadChallengeDetail(challengeIndex);
     }
   }
+
   // ------------------------------------------------------
   // Check victory
   // ------------------------------------------------------
@@ -282,31 +300,23 @@
   ></script>
 </svelte:head>
 
-<div class="drawer drawer-end">
-  <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
-  <div class="drawer-content ">
-    <!-- Page content here -->
+<!-- Modal Dialog  -->
+<LoadingDialog {loading} message={loadingMessage} />
+<VictoryDialog show={won} {score} on:next={nextLevel} />
 
-    <Header
-      on:left={previousLevel}
-      on:right={nextLevel}
-      title={challenge?.title}
-      level={challenge?.level}
-      file={challenge?.title}
-      {loading}
-    >
-      <label
-        for="my-drawer-4"
-        class="drawer-button btn btn-primary text-black btn-outline font-medium gap-2"
-      >
-        Challenge {challengeIndex + 1}
-      </label>
-    </Header>
+<Header
+  on:left={previousLevel}
+  on:right={nextLevel}
+  on:menu={() => (show_drawer = !show_drawer)}
+  title={challenge?.title}
+  level={challenge?.level}
+  file={challenge?.file}
+  index={challengeIndex}
+  {loading}
+/>
 
-    <Loading {loading} />
-
-    <YouWin show={won} {score} on:next={nextLevel} />
-
+<Drawer show={show_drawer}>
+  <svelte:fragment slot="content">
     <Grid>
       <CodeEditor slot="a" on:run={runCode} bind:code />
       <Console bind:code={consoleOutput} slot="b" />
@@ -317,17 +327,30 @@
         data={challengeDetail?.expected}
       />
     </Grid>
-    <p
-      class="font-mono text-xs text-right bg-base-300 pt-1  border-t-2 border-base-300 px-2"
-    >
-      Created by <a href="https://github.com/dridk">@dridk</a> &
-      <a href="https://github.com/SteampunkIslande">@SteampunkIslande</a>
-      {__APP_VERSION__}
-    </p>
-  </div>
+  </svelte:fragment>
 
-  <ChallengeList bind:current_index={challengeIndex} {challenges} />
-</div>
+  <svelte:fragment slot="sidebar">
+    <ChallengeList bind:current_index={challengeIndex} {challenges} />
+  </svelte:fragment>
+</Drawer>
 
+<!-- 
+
+
+
+
+<Grid>
+  <CodeEditor slot="a" on:run={runCode} bind:code />
+  <Console bind:code={consoleOutput} slot="b" />
+  <DataFrame title="Input Data" slot="c" data={computed_input_str} />
+  <DataFrame title="Expected Data" slot="d" data={challengeDetail?.expected} />
+</Grid>
+<p
+  class="font-mono text-xs text-right bg-base-300 pt-1  border-t-2 border-base-300 px-2"
+>
+  Created by <a href="https://github.com/dridk">@dridk</a> &
+  <a href="https://github.com/SteampunkIslande">@SteampunkIslande</a>
+  {__APP_VERSION__}
+</p> -->
 <style>
 </style>

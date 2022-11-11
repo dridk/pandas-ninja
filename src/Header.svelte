@@ -1,6 +1,6 @@
 <script lang="ts">
   import Badge from "./Badge.svelte";
-  import ValidIcon from "./ValidIcon.svelte";
+  import Rating from "./Rating.svelte";
 
   import { createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
@@ -10,10 +10,12 @@
   export let title: string;
   export let level: string;
   export let file: string;
+  export let index: number;
 
-  function isSuccess(file: string): boolean {
-    console.debug("the file", file);
-    return localStorage.getItem(file) === null ? false : true;
+  function getRating(filename: string): number {
+    let value = localStorage.getItem(filename) ?? "-1";
+    console.debug("RATINGLA", value, filename);
+    return parseInt(value);
   }
 
   function emit_left_clicked(event) {
@@ -23,17 +25,16 @@
   function emit_right_clicked(event) {
     dispatch("right", {});
   }
+
+  function emit_menu_clicked(event) {
+    dispatch("menu", {});
+  }
 </script>
 
 <div class="navbar bg-white border-b border-b-base-300 flex justify-between ">
   <div class="flex-none">
     <button class="btn btn-square btn-ghost">
-      <svg style="width:40px;height:40px" viewBox="0 0 24 24">
-        <path
-          fill="black"
-          d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3M11 8H9V10C9 11.1 8.1 12 7 12C8.1 12 9 12.9 9 14V16H11V18H9C7.9 18 7 17.1 7 16V15C7 13.9 6.1 13 5 13V11C6.1 11 7 10.1 7 9V8C7 6.9 7.9 6 9 6H11V8M19 13C17.9 13 17 13.9 17 15V16C17 17.1 16.1 18 15 18H13V16H15V14C15 12.9 15.9 12 17 12C15.9 12 15 11.1 15 10V8H13V6H15C16.1 6 17 6.9 17 8V9C17 10.1 17.9 11 19 11V13Z"
-        />
-      </svg>
+      <img src="shuriken.svg" alt="" />
     </button>
 
     <div class="flex-1 ">
@@ -43,15 +44,12 @@
       </a>
     </div>
   </div>
-  {#if loading}
-    <h2 class="text-base font-medium">Loading ...</h2>
-  {:else}
-    <div class="flex gap-2">
-      <ValidIcon active={isSuccess(file)} />
-      <h1 class="text-xl uppercase text-base-300 font-semibold">{title}</h1>
-      <Badge {level} />
-    </div>
-  {/if}
+
+  <div class="flex gap-2">
+    <Rating size={20} score={getRating(file)} />
+    <h1 class="text-xl uppercase text-base-300 font-semibold">{title}</h1>
+    <Badge {level} />
+  </div>
 
   <div class="flex-none  ">
     <button on:click={emit_left_clicked} class="btn btn-square btn-ghost">
@@ -63,7 +61,9 @@
       </svg>
     </button>
 
-    <slot />
+    <button on:click={emit_menu_clicked} class="btn btn-outline btn-primary"
+      >Challenge {index + 1}</button
+    >
 
     <button on:click={emit_right_clicked} class="btn btn-square btn-ghost ">
       <svg style="width:24px;height:24px" viewBox="0 0 24 24">
