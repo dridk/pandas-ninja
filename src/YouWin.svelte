@@ -26,7 +26,12 @@
 </script>
 
 <!-- Put this part before </body> tag -->
-<input type="checkbox" id="my-modal" class="modal-toggle" bind:checked={show} />
+<input
+  type="checkbox"
+  id="my-modal-2"
+  class="modal-toggle"
+  bind:checked={show}
+/>
 <div class="modal">
   <div class="modal-box">
     <div class="flex flex-col items-center ">
@@ -50,7 +55,7 @@
     </div>
 
     <div class="modal-action">
-      <label for="my-modal" class="btn btn-secondary btn-sm">Try again</label>
+      <label for="my-modal-2" class="btn btn-secondary btn-sm">Try again</label>
       <button on:click={emit_next} class="btn btn-primary btn-sm"
         >Next level</button
       >
