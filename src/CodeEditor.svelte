@@ -3,8 +3,9 @@
   import "brace/mode/python";
   import "brace/theme/cobalt";
   import ToolBar from "./ToolBar.svelte";
-
   import { createEventDispatcher } from "svelte";
+
+  import { shortcut } from "./shortcut.js";
 
   const dispatch = createEventDispatcher();
 
@@ -22,7 +23,17 @@
     <h2>Code editor</h2>
 
     <div>
-      <button on:click={emit_run} class="btn btn-primary btn-xs ">Run</button>
+      <kbd class="kbd kbd-xs">shift</kbd>
+      +
+      <kbd class="kbd kbd-xs">Space</kbd>
+    </div>
+
+    <div>
+      <button
+        use:shortcut={{ shift: true, code: "Space" }}
+        on:click={emit_run}
+        class="btn btn-primary btn-xs ">Run</button
+      >
     </div>
   </div>
 </ToolBar>
@@ -30,6 +41,7 @@
 <AceEditor
   width="100%"
   height="100%"
+  on:commandKey={(obj) => console.log(obj.detail)}
   options={{
     showPrintMargin: false,
     showLineNumbers: true,
