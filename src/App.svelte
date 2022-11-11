@@ -18,16 +18,15 @@
    *========================
    */
 
-  // Challenge List Item
-  interface ChallengeListItem {
+  // Challenge from from Challenge List
+  interface Challenge {
     title: string;
     file: string;
     level: string;
-    age: string;
   }
 
   // Challenge object
-  interface Challenge {
+  interface ChallengeDetail {
     title: string;
     author: string;
     placeholder?: string;
@@ -40,23 +39,46 @@
    *========================
    */
 
-  let challengeList: ChallengeListItem[] = [];
-  let challengeListIndex: number;
-  let currentChallenge: Challenge;
+  // List of challenges
+  let challenges: Challenge[] = [];
 
-  $: current_title = getChallengeListItem(challengeListIndex)?.title;
-  $: current_level = getChallengeListItem(challengeListIndex)?.level;
-  $: current_file = getChallengeListItem(challengeListIndex)?.file;
-  $: challengeListIndex && loadChallenge(challengeListIndex);
+  // currenge challenge
+  let challenge: Challenge;
 
+  // current challenge details
+  let challengeDetail: ChallengeDetail;
+
+  // Index of current challenge
+  let challengeIndex: number;
+  $: {
+    loadChallengeDetail(challengeIndex);
+  }
+
+  // Python handle
   let pyodide: any = null;
-  let loading: boolean = true;
+
+  // console output
   let consoleOutput: string;
+
+  // codeEditor content
   let code: string;
+
+  // Display Loading modal box
+  let loading: boolean = true;
+
+  // Loading message
+  let loadingMessage: string;
+
+  // display Win modal box
   let won: boolean = false;
+
+  // Win score
   let score: number = 0;
 
+  // Computed dataframe
   let computed_input: any = [];
+
+  // Computed dataframe as string
   let computed_input_str: any = [];
 
   /** ======================
@@ -64,56 +86,70 @@
    *========================
    */
 
+  // ------------------------------------------------------
   // Append text to console
+  // ------------------------------------------------------
+
   function appendConsole(text: string): void {
     consoleOutput = consoleOutput + "\n" + text;
   }
 
+  // ------------------------------------------------------
   // Clear console
+  // ------------------------------------------------------
   function clearConsole() {
     consoleOutput = "";
   }
 
-  // Load challenges list
-  async function loadChallengeList() {
+  // ------------------------------------------------------
+  // Load all challenges from challenges.json
+  // ------------------------------------------------------
+  async function loadChallenges() {
     console.log("Load challenges List ");
-
-    let response = await fetch("challenges.json");
-    let el = await response.json();
-
-    challengeList = el["data"];
-    challengeListIndex = 0;
-
-    await loadChallenge(challengeListIndex);
-
-    return challengeList;
-  }
-
-  async function loadChallenge(index: number) {
-    console.log(index, challengeList);
-    let file = getChallengeListItem(index)?.file;
-
-    console.debug(index, file, challengeList);
-
-    let response = await fetch(`challenges/${file}`);
-
-    let el: Challenge = await response.json();
-
-    currentChallenge = el;
-    code = currentChallenge.placeholder || "";
-
-    runCode();
-  }
-
-  // Get a challengeListItem from index
-  function getChallengeListItem(index: number): ChallengeListItem {
-    if (index < challengeList.length) {
-      return challengeList[index];
+    challenges = [];
+    try {
+      let response = await fetch("challenges.json");
+      let el = await response.json();
+      challenges = el["data"] ?? [];
+    } catch (error) {
+      console.error("Cannot load challenges.json");
     }
-    return undefined;
   }
 
+  // ------------------------------------------------------
+  // Get a Challenge from index
+  // ------------------------------------------------------
+  function getChallenge(index: number): Challenge {
+    if (index < challenges.length) {
+      return challenges[index];
+    }
+  }
+  // ------------------------------------------------------
+  // Load a Challenge detail from specific index
+  // ------------------------------------------------------
+  async function loadChallengeDetail(index: number) {
+    challenge = getChallenge(challengeIndex);
+    let file = challenge?.file;
+
+    if (!file) {
+      console.error("no file specified");
+      throw Error("Cannot get challenge file");
+    }
+
+    try {
+      console.log("Load challenge details", file);
+      let response = await fetch(`challenges/${file}`);
+      challengeDetail = await response.json();
+      code = challengeDetail.placeholder ?? "";
+      runCode();
+    } catch (error) {
+      console.error("Cannot load challenge detail", file);
+    }
+  }
+
+  // ------------------------------------------------------
   // Load Python
+  // ------------------------------------------------------
   async function loadPython() {
     loading = true;
     pyodide = await loadPyodide({
@@ -121,12 +157,13 @@
       stderr: (text: string) => appendConsole(text),
     });
     // Pyodide is now ready to use...
-    console.log(
-      pyodide.runPython(`
-      import sys
-      sys.version
-      `)
-    );
+    let python_version = pyodide.runPython(`
+    import sys
+    sys.version
+    `);
+
+    console.log(python_version);
+    appendConsole(python_version);
 
     // Load Pandas
     await pyodide.loadPackage(["pandas"]);
@@ -135,25 +172,32 @@
     pyodide.runPython(`import pandas as pd `);
 
     console.log("Pandas loaded");
+    appendConsole("Pandas Loaded");
+  }
 
-    await loadChallengeList();
+  // ------------------------------------------------------
+  // Init function at startup
+  // ------------------------------------------------------
 
+  async function main() {
+    loading = true;
+    await loadPython();
+    await loadChallenges();
+
+    challengeIndex = 0;
     loading = false;
   }
 
-  // Init function
-  async function main() {
-    console.log("Truc");
-  }
-
+  // ------------------------------------------------------
   // run Code
+  // ------------------------------------------------------
   function runCode() {
     try {
       // Move JS code to Python
       clearConsole();
       won = false;
       score = 0;
-      pyodide.globals.set("raw_input", currentChallenge.input);
+      pyodide.globals.set("raw_input", challengeDetail.input);
 
       // build pre-code and post-code
       const start_code = `import js\nimport ast\ndf = pd.DataFrame(raw_input.to_py())`;
@@ -193,35 +237,39 @@
     }
   }
 
+  // ------------------------------------------------------
   // Next Level
+  // ------------------------------------------------------
+
   function nextLevel() {
-    if (challengeListIndex < challengeList.length - 1) {
-      challengeListIndex = challengeListIndex + 1;
-      loadChallenge(challengeListIndex);
+    if (challengeIndex < challenges.length - 1) {
+      challengeIndex = challengeIndex + 1;
+      loadChallengeDetail(challengeIndex);
     }
   }
 
-  // Previous level
+  // ------------------------------------------------------
+  // Previous Level
+  // ------------------------------------------------------
   function previousLevel() {
-    if (challengeListIndex > 0) {
-      challengeListIndex = challengeListIndex - 1;
-      loadChallenge(challengeListIndex);
+    if (challengeIndex > 0) {
+      challengeIndex = challengeIndex - 1;
+      loadChallengeDetail(challengeIndex);
     }
   }
-
+  // ------------------------------------------------------
   // Check victory
+  // ------------------------------------------------------
   function checkVictory() {
     console.debug("COMPUTED ", JSON.stringify(computed_input));
-    console.debug("EXPECTED ", JSON.stringify(currentChallenge.expected));
+    console.debug("EXPECTED ", JSON.stringify(challengeDetail.expected));
 
     if (
-      JSON.stringify(computed_input) ==
-      JSON.stringify(currentChallenge.expected)
+      JSON.stringify(computed_input) == JSON.stringify(challengeDetail.expected)
     ) {
       console.debug("WIN !!!!!!!!!!");
 
-      localStorage.setItem(current_file, "true");
-
+      localStorage.setItem(challenge?.file, score.toString());
       won = true;
     }
   }
@@ -230,7 +278,7 @@
 <svelte:head>
   <script
     src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js"
-    on:load={loadPython}
+    on:load={main}
   ></script>
 </svelte:head>
 
@@ -242,16 +290,16 @@
     <Header
       on:left={previousLevel}
       on:right={nextLevel}
-      title={current_title}
-      level={current_level}
-      file={current_file}
+      title={challenge?.title}
+      level={challenge?.level}
+      file={challenge?.title}
       {loading}
     >
       <label
         for="my-drawer-4"
         class="drawer-button btn btn-primary text-black btn-outline font-medium gap-2"
       >
-        Challenge {challengeListIndex + 1}
+        Challenge {challengeIndex + 1}
       </label>
     </Header>
 
@@ -266,7 +314,7 @@
       <DataFrame
         title="Expected Data"
         slot="d"
-        data={currentChallenge?.expected}
+        data={challengeDetail?.expected}
       />
     </Grid>
     <p
@@ -278,10 +326,7 @@
     </p>
   </div>
 
-  <ChallengeList
-    bind:current_index={challengeListIndex}
-    challenges={challengeList}
-  />
+  <ChallengeList bind:current_index={challengeIndex} {challenges} />
 </div>
 
 <style>
