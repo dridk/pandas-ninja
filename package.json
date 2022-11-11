@@ -29,6 +29,7 @@
     "daisyui": "^2.38.1",
     "monaco-editor": "^0.34.1",
     "octokit": "^2.0.10",
-    "svelte-ace": "^1.0.21"
+    "svelte-ace": "^1.0.21",
+    "svelte-clipboard": "^1.0.0"
   }
 }
