@@ -1,5 +1,6 @@
 <script lang="ts">
   import Badge from "./Badge.svelte";
+  import Rating from "./Rating.svelte";
   import ValidIcon from "./ValidIcon.svelte";
 
   export let level_filter = "easy";
@@ -16,18 +17,21 @@
 <path fill="#25AC47" d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z" />
 </svg>`;
 
-  function isSuccess(filename: string): boolean {
-    return localStorage.getItem(filename) === null ? false : true;
+  function getRating(filename: string): number {
+    let value = localStorage.getItem(filename) ?? "-1";
+    console.debug("RATING", value, filename);
+    return parseInt(value);
   }
 </script>
 
-<div class="drawer-side">
+<div class="drawer-side ">
   <label for="my-drawer-4" class="drawer-overlay" />
 
-  <div class="menu bg-base-100 w-80 p-2 ">
+  <div class="menu bg-base-100 w-80 p-2">
     <div class="tabs tabs-boxed ">
       {#each levels as level}
         <a
+          href="#"
           on:click={() => (level_filter = level)}
           class="tab tab-lifted {level_filter === level
             ? 'tab-active'
@@ -42,17 +46,32 @@
           <li>
             <a
               on:click={() => (current_index = i)}
-              class="{current_index == i ? 'active' : ''} flex justify-between"
+              class="{current_index == i
+                ? 'active'
+                : ''} flex justify-between w-full"
             >
-              <ValidIcon active={isSuccess(file)} />
+              <!-- Element left -->
+              <div>
+                <h1 class="text-3xl font-light text-center">
+                  {i + 1}
+                </h1>
+              </div>
 
-              <div class="flex gap-3 ">
-                <div>
-                  <a class="text-slate-100 "> Challenge {i + 1}</a>
-                  <p class="text-xs text-slate-400">{title}</p>
+              <!-- Element center -->
+
+              <div class="flex gap-3 flex-grow ml-4 ">
+                <div class="flex flex-col justify-center items-left ">
+                  <a class="text-slate-100 "> {title}</a>
+
+                  <Rating size="20" score={getRating(file)} />
                 </div>
               </div>
-              <Badge {level} />
+
+              <!-- Element right-->
+
+              <div>
+                <Badge {level} />
+              </div>
             </a>
           </li>
         {/if}
