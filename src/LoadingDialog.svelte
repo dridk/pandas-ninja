@@ -7,8 +7,10 @@
 
 <!-- Put this part before </body> tag -->
 <input type="checkbox" id="my-modal" class="modal-toggle" checked={loading} />
-<div class="modal backdrop-blur-sm backdrop-grayscale ">
-  <div class="modal-box flex flex-col items-center gap-4">
+<div class="modal backdrop-blur-sm backdrop-grayscale shadow-2xl ">
+  <div
+    class="modal-box flex flex-col items-center gap-4  border-2 border-primary"
+  >
     <h1 class="font-semibold text-2xl">Loading Python into your Browser</h1>
 
     <Loading />

@@ -304,19 +304,19 @@
 <LoadingDialog {loading} message={loadingMessage} />
 <VictoryDialog show={won} {score} on:next={nextLevel} />
 
-<Header
-  on:left={previousLevel}
-  on:right={nextLevel}
-  on:menu={() => (show_drawer = !show_drawer)}
-  title={challenge?.title}
-  level={challenge?.level}
-  file={challenge?.file}
-  index={challengeIndex}
-  {loading}
-/>
-
 <Drawer show={show_drawer}>
   <svelte:fragment slot="content">
+    <Header
+      on:left={previousLevel}
+      on:right={nextLevel}
+      on:menu={() => (show_drawer = !show_drawer)}
+      title={challenge?.title}
+      level={challenge?.level}
+      file={challenge?.file}
+      index={challengeIndex}
+      {loading}
+    />
+
     <Grid>
       <CodeEditor slot="a" on:run={runCode} bind:code />
       <Console bind:code={consoleOutput} slot="b" />
