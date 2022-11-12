@@ -1,6 +1,11 @@
 {
 	"data": [
 		{
+			"title": "First challenge",
+			"file": "first_challenge.json",
+			"level": "easy"
+		},
+		{
 			"title": "Simple sort",
 			"file": "simple_sort.json",
 			"level": "easy"
