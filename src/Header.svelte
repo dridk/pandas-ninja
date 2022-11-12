@@ -10,6 +10,7 @@
   export let title: string;
   export let level: string;
   export let file: string;
+  export let rating: number;
   export let index: number;
 
   function getRating(filename: string): number {
@@ -34,21 +35,25 @@
 <div class="navbar bg-white border-b border-b-base-300 flex justify-between ">
   <div class="flex-none">
     <button class="btn btn-square btn-ghost">
-      <img src="shuriken.svg" alt="" />
+      <img src="shuriken.svg" width="35px" alt="" />
     </button>
 
     <div class="flex-1 ">
-      <a class="btn btn-ghost text-black normal-case text-xl">
-        <h1>PANDAS</h1>
+      <a href={null} class="flex text-black normal-case text-xl">
+        <h1 class="font-extrabold">PANDAS</h1>
         <h1 class="font-light ml-1">Ninja</h1>
       </a>
     </div>
   </div>
 
-  <div class="flex gap-2">
-    <Rating size={20} score={getRating(file)} />
-    <h1 class="text-xl uppercase text-base-300 font-semibold">{title}</h1>
-    <Badge {level} />
+  <div class="flex  flex-col ">
+    <div class="flex flex-row gap-x-2 items-center">
+      <h1 class="text-xl ml-12 uppercase text-base-300 font-semibold">
+        {title}
+      </h1>
+      <Badge {level} />
+    </div>
+    <Rating size={20} score={rating} />
   </div>
 
   <div class="flex-none  ">

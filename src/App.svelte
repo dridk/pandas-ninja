@@ -25,6 +25,7 @@
     title: string;
     file: string;
     level: string;
+    rating: number;
   }
 
   // Challenge object
@@ -77,6 +78,9 @@
   // Win score
   let score: number = 0;
 
+  // expression number
+  let expressionCount: number;
+
   // Drawer pen
   let show_drawer: boolean = false;
 
@@ -118,6 +122,9 @@
       let response = await fetch("challenges.json");
       let el = await response.json();
       challenges = el["data"] ?? [];
+
+      // get All rating
+      challenges.map((x) => (x.rating = getRating(x.file)));
     } catch (error) {
       console.error("Cannot load challenges.json");
     }
@@ -160,6 +167,14 @@
     }
   }
 
+  // ------------------------------------------------------
+  // get Rating from local Storage
+  // ------------------------------------------------------
+  function getRating(file: string): number {
+    let value = localStorage.getItem(file) ?? "-1";
+    console.debug("RATING", value, file);
+    return parseInt(value);
+  }
   // ------------------------------------------------------
   // Load Python
   // ------------------------------------------------------
@@ -233,12 +248,12 @@
       // get results
       let json_result = pyodide.globals.get("df");
       let json_result_str = pyodide.globals.get("df_str");
-      let line_number = pyodide.globals.get("line_number");
+      expressionCount = pyodide.globals.get("line_number");
 
-      if (line_number == 0 || line_number > 3) score = 0;
-      else score = 4 - line_number;
+      if (expressionCount == 0 || expressionCount > 3) score = 0;
+      else score = 4 - expressionCount;
 
-      console.debug("LINE NUMBER", line_number);
+      console.debug("LINE NUMBER", expressionCount);
 
       computed_input = json_result.toJs({ dict_converter: Object.fromEntries });
       computed_input_str = json_result_str.toJs({
@@ -289,6 +304,7 @@
 
       localStorage.setItem(challenge?.file, score.toString());
       won = true;
+      challenge.rating = score;
     }
   }
 </script>
@@ -302,7 +318,7 @@
 
 <!-- Modal Dialog  -->
 <LoadingDialog {loading} message={loadingMessage} />
-<VictoryDialog show={won} {score} on:next={nextLevel} />
+<VictoryDialog show={won} {score} {expressionCount} on:next={nextLevel} />
 
 <Drawer show={show_drawer}>
   <svelte:fragment slot="content">
@@ -313,6 +329,7 @@
       title={challenge?.title}
       level={challenge?.level}
       file={challenge?.file}
+      rating={challenge?.rating}
       index={challengeIndex}
       {loading}
     />

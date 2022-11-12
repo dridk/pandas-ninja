@@ -3,7 +3,7 @@
 
 	let splitter_size = "2px";
 	let splitter_color = "#3C404C";
-	let splitter_active_color = "blue";
+	let splitter_active_color = "#641AE6";
 </script>
 
 <div class="wrapper ">

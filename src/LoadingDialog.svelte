@@ -8,14 +8,11 @@
 <!-- Put this part before </body> tag -->
 <input type="checkbox" id="my-modal" class="modal-toggle" checked={loading} />
 <div class="modal backdrop-blur-sm backdrop-grayscale shadow-2xl ">
-  <div
-    class="modal-box flex flex-col items-center gap-4  border-2 border-primary"
-  >
-    <h1 class="font-semibold text-2xl">Loading Python into your Browser</h1>
-
+  <div class="modal-box max-w-xs flex flex-col items-center gap-4 ">
+    <h1 class="font-semibold text-xl animate-pulse">Please wait ...</h1>
     <Loading />
 
-    <span class="text-sm font-thin text-center">
+    <span class="text-sm font-mono text-center">
       {message}
     </span>
   </div>

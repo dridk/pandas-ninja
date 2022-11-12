@@ -20,25 +20,21 @@
 
 <ToolBar>
   <div class="flex justify-between items-center h-full p-2">
-    <h2>Code editor</h2>
+    <h2 class="flex-grow">Code editor</h2>
 
-    <div>
+    <div class="mr-4 flex gap-1">
       <kbd class="kbd kbd-xs">shift</kbd>
       +
       <kbd class="kbd kbd-xs">Space</kbd>
     </div>
 
     <div>
-      <div
-        class="tooltip hover:tooltip-open tooltip-secondary tooltip-left z-40 sticky "
-        data-tip="Run the code"
-      >
-        <button
-          use:shortcut={{ shift: true, code: "Space" }}
-          on:click={emit_run}
-          class="btn btn-primary btn-sm ">Run</button
-        >
-      </div>
+      <button
+        use:shortcut={{ shift: true, code: "Space" }}
+        on:click={emit_run}
+        class="btn btn-primary btn-sm "
+        >Run
+      </button>
     </div>
   </div>
 </ToolBar>

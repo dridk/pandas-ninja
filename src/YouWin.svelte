@@ -32,28 +32,8 @@
   class="modal-toggle"
   bind:checked={show}
 />
-<div class="modal">
-  <div class="modal-box">
-    <div class="flex flex-col items-center ">
-      {@html CUP}
-
-      <h1 class="text-3xl font-light">You won!</h1>
-
-      <div class="flex">
-        {#each Array(3) as _, i}
-          {#if score <= i}
-            {@html STAR_OUTLINE}
-          {:else}
-            {@html STAR_FULL}
-          {/if}
-        {/each}
-      </div>
-
-      <p class="px-4 text-sm text-center text-gray-600">
-        Try again with less code lines for more stars.
-      </p>
-    </div>
-
+<div class="modal w-16">
+  <div class="modal-box max-w-screen-2xl">
     <div class="modal-action">
       <label for="my-modal-2" class="btn btn-secondary btn-sm">Try again</label>
       <button on:click={emit_next} class="btn btn-primary btn-sm"
