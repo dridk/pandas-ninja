@@ -1,0 +1,41 @@
+{
+  "title": "explode",
+  "author": "@dridk",
+  "placeholder": "# Duplicate line to have one fruit per line\n\nprint(df) ",
+  "input": [
+    {
+      "user": "kevin",
+      "fruit": "apple,orange,tomatoe"
+    },
+    {
+      "user": "charles",
+      "fruit": "orange"
+    },
+    {
+      "user": "mike",
+      "fruit": "pineapple,melon"
+    },
+    {
+      "user": "bob",
+      "fruit": "cherry,strawberry,cranberry"
+    }
+  ],
+  "expected": [
+    {
+      "user": "kevin",
+      "fruit": "tomatoe"
+    },
+    {
+      "user": "charles",
+      "fruit": "orange"
+    },
+    {
+      "user": "mike",
+      "fruit": "melon"
+    },
+    {
+      "user": "bob",
+      "fruit": "cranberry"
+    }
+  ]
+}

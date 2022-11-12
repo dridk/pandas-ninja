@@ -1,0 +1,41 @@
+{
+  "title": "simplesort",
+  "author": "@dridk",
+  "placeholder": "#Sort rows by first column\nprint(df)",
+  "input": [
+    {
+      "count": 2,
+      "fruits": "apple"
+    },
+    {
+      "count": 4,
+      "fruits": "banana"
+    },
+    {
+      "count": 1,
+      "fruits": "cherry"
+    },
+    {
+      "count": 5,
+      "fruits": "orange"
+    }
+  ],
+  "expected": [
+    {
+      "count": 1,
+      "fruits": "cherry"
+    },
+    {
+      "count": 2,
+      "fruits": "apple"
+    },
+    {
+      "count": 4,
+      "fruits": "banana"
+    },
+    {
+      "count": 5,
+      "fruits": "orange"
+    }
+  ]
+}

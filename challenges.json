@@ -1,0 +1,19 @@
+{
+	"data": [
+		{
+			"title": "Simple sort",
+			"file": "simple_sort.json",
+			"level": "easy"
+		},
+		{
+			"title": "Explode",
+			"file": "explode.json",
+			"level": "medium"
+		},
+		{
+			"title": "get dummies",
+			"file": "get_dummies.json",
+			"level": "hard"
+		}
+	]
+}
