@@ -16,7 +16,7 @@ It is my first web application made with the following technology.  So feel free
 ## Challenges contribution 
 
 I invite you to create challenges and share them by making using pull request.   
-A challenge is a json file with an input and an expected dataframe. 
+A challenge is a json file with an input and an expected dataframe.     
 All challenges are stored in the [public/challenges/](https://github.com/dridk/pandas-ninja/blob/main/public/challenges/) folder.
 
 ### Examples 
