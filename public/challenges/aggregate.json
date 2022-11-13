@@ -1,0 +1,54 @@
+{
+  "title": "aggregate",
+  "author": "@dridk",
+  "placeholder": "# Get first job for each user",
+  "input": [
+    {
+      "user": "kevin",
+      "job": "baker",
+      "year": 2012
+    },
+    {
+      "user": "kevin",
+      "job": "cook",
+      "year": 2015
+    },
+    {
+      "user": "kevin",
+      "job": "fishmonger",
+      "year": 2009
+    },
+    {
+      "user": "charles",
+      "job": "butcher",
+      "year": 2010
+    },
+    {
+      "user": "mike",
+      "job": "flight helicopter pilot",
+      "year": 2022
+    },
+    {
+      "user": "mike",
+      "job": "helicopter pilot",
+      "year": 2010
+    }
+  ],
+  "expected": [
+    {
+      "user": "charles",
+      "first job": "butcher",
+      "total job": 1
+    },
+    {
+      "user": "kevin",
+      "first job": "fishmonger",
+      "total job": 3
+    },
+    {
+      "user": "mike",
+      "first job": "helicopter pilot",
+      "total job": 2
+    }
+  ]
+}

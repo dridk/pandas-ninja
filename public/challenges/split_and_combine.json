@@ -1,0 +1,45 @@
+{
+	"name": "split and combine",
+	"placeholder": "# Split into 2 dataframe \n #and combine them to fill -1 values",
+	"author": "@dridk",
+	"input": [
+		{
+			"name": "Boby",
+			"age": 42
+		},
+		{
+			"name": "Charles",
+			"age": -1
+		},
+		{
+			"name": "raymond",
+			"age": 65
+		},
+		{
+			"name": "Boby",
+			"age": -1
+		},
+		{
+			"name": "Charles",
+			"age": 12
+		},
+		{
+			"name": "raymond",
+			"age": -1
+		}
+	],
+	"expected": [
+		{
+			"name": "Boby",
+			"age": 42
+		},
+		{
+			"name": "Charles",
+			"age": 12
+		},
+		{
+			"name": "raymond",
+			"age": 65
+		}
+	]
+}
