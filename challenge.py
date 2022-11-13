@@ -1,5 +1,7 @@
 import pandas as pd
-import json
+
+import sys
+import simplejson as json
 
 
 class Challenge:
@@ -9,6 +11,16 @@ class Challenge:
         self.placeholder: str = ""
         self.input_df: pd.DataFrame = pd.DataFrame([])
         self.expected_df: pd.DataFrame = pd.DataFrame([])
+
+    def show(self):
+
+        print(f"{self.name}")
+        print(f"{self.author}")
+        print(f"{self.placeholder}")
+        print("========================")
+        print(f"{self.input_df.to_string()}")
+        print("------------------------")
+        print(f"{self.expected_df.to_string()}")
 
     def to_dict(self):
 
@@ -34,7 +46,7 @@ class Challenge:
 
     def save(self, filename: str):
         with open(filename, "w") as file:
-            json.dump(self.to_dict(), file)
+            json.dump(self.to_dict(), file, ignore_nan=True)
 
 
 c = Challenge()
