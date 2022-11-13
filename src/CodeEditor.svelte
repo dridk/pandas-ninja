@@ -48,6 +48,7 @@
     showGutter: true,
     enableBasicAutocompletion: true,
     highlightActiveLine: false,
+    wrap: 200,
     fontSize: 20,
   }}
   lang="python"
@@ -57,6 +58,6 @@
 
 <style>
   :global(.ace_content, .ace_scroller, .ace_gutter-layer, .ace_gutter, ace-cobalt) {
-    background-color: #2a303c;
+    background-color: hsl(var(--b1));
   }
 </style>

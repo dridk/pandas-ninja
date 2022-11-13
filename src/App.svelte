@@ -353,6 +353,12 @@
         data={challengeDetail?.expected}
       />
     </Grid>
+
+    <p
+      class="font-mono text-xs text-right bg-base-300 pt-1  border-t-2 border-base-300 px-2"
+    >
+      version {__APP_VERSION__}
+    </p>
   </svelte:fragment>
 
   <svelte:fragment slot="sidebar">
@@ -371,12 +377,6 @@
   <DataFrame title="Input Data" slot="c" data={computed_input_str} />
   <DataFrame title="Expected Data" slot="d" data={challengeDetail?.expected} />
 </Grid>
-<p
-  class="font-mono text-xs text-right bg-base-300 pt-1  border-t-2 border-base-300 px-2"
->
-  Created by <a href="https://github.com/dridk">@dridk</a> &
-  <a href="https://github.com/SteampunkIslande">@SteampunkIslande</a>
-  {__APP_VERSION__}
-</p> -->
+-->
 <style>
 </style>

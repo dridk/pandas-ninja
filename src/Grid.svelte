@@ -2,8 +2,8 @@
 	import { Split, DefaultSplitter } from "@geoffcox/svelte-splitter";
 
 	let splitter_size = "2px";
-	let splitter_color = "#3C404C";
-	let splitter_active_color = "#641AE6";
+	let splitter_color = "hsl(var(--b3))";
+	let splitter_active_color = "hsl(var(--p))";
 </script>
 
 <div class="wrapper ">
