@@ -1,7 +1,10 @@
-# Source code of pandas ninja 
-https://dridk.github.io/pandas-ninja/
+# Pandas ninja
 
-This application has been made with the following technology. It is my first web application, so feel free to tell me if my code is wrong. 
+Source code of pandas ninja https://pandas.ninja. 
+
+Pandas ninja is teaching game made to become a master with the [pandas](https://pandas.pydata.org/) python libraires. There are challenges produced by the community and player must resolve it using one python expression. This application was possible thanks to the [pyodide.js](https://pyodide.org/en/stable/) library which makes possible to run python from client side. 
+
+It is my first web application made with the following technology.  So feel free to fix my code and add contribution. 
 
 - [svelte](https://svelte.dev/) 
 - [vite](https://vitejs.dev/) 
@@ -10,24 +13,13 @@ This application has been made with the following technology. It is my first web
 - [pyodide](https://pyodide.org/en/stable/)
 
 
-## Installation for developers 
-
-```
-git clone https://github.com/dridk/pandas-ninja
-cd pandas-ninja
-npm install 
-npm run dev 
-
-```
-
-
 ## Challenges contribution 
 
-I invite you to create challenges and share them by making a pull request.    
-A challenge is defined as a json file with an input and an expected table. 
-All challenges are stored in [public/challenges/](https://github.com/dridk/pandas-ninja/blob/main/public/challenges/). 
+I invite you to create challenges and share them by making using pull request.   
+A challenge is a json file with an input and an expected dataframe.     
+All challenges are stored in the [public/challenges/](https://github.com/dridk/pandas-ninja/blob/main/public/challenges/) folder.
 
-## Examples 
+### Examples 
 
 ```json
 {
@@ -57,4 +49,40 @@ All challenges are stored in [public/challenges/](https://github.com/dridk/panda
     
 
 ```
+
+
+### challenge.py 
+
+a python script is available to create challenges. It depends only on `simplejson` and `pandas`.
+
+```python
+from challenge import Challenge
+import pandas as pd
+import numpy as np
+
+file = "public/challenges/my_challenge.py"
+c = Challenge()
+c.name= "my challenge"
+c.author  = "@github_account"
+c.placeholder= " # A comment to put on source code editor " 
+
+c.input_df = pd.DataFrame(...)
+c.expected_df = pd.DataFrame(...)
+
+c.show()
+c.save(file)
+
+```
+
+
+## Launch the web app
+
+```
+git clone https://github.com/dridk/pandas-ninja
+cd pandas-ninja
+npm install 
+npm run dev 
+
+```
+
 
