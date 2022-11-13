@@ -243,6 +243,15 @@
       let all_code =
         start_code + "\n" + code + "\n" + end_code + "\n" + intro_code;
 
+      // avoid forbidden words
+
+      if (code.includes("DataFrame(") || code.includes("Series(")) {
+        appendConsole(
+          "Creating a DataFrame or a Serie is forbidden.\nFind another way"
+        );
+        return;
+      }
+
       // run all_code
       pyodide.runPython(all_code);
 

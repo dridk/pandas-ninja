@@ -41,7 +41,6 @@
 
 <AceEditor
   width="100%"
-  height="100%"
   on:commandKey={(obj) => console.log(obj.detail)}
   options={{
     showPrintMargin: false,
@@ -57,7 +56,7 @@
 />
 
 <style>
-  :global(.ace_content, .ace_scroller, .ace_gutter-layer) {
+  :global(.ace_content, .ace_scroller, .ace_gutter-layer, .ace_gutter, ace-cobalt) {
     background-color: #2a303c;
   }
 </style>
