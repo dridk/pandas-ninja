@@ -1,1 +1,37 @@
-{"name": "First lesson", "author": "@dridk", "placeholder": "#This first challenge allows you to see how pandas ninja works.\n#You need to write python code to transform\n#the dataframe df ( right-top) to the expected dataframe (right-bottom). \n#The number of stars obtained is a function\n #of the number of python expression\n\n#df[\"status\"] = \"Sensei\"\n", "input": [{"name": "Iruka"}, {"name": "Kakashi"}, {"name": "Jiraiya"}, {"name": "Ebisu"}], "expected": [{"name": "Iruka", "status": "Sensei"}, {"name": "Kakashi", "status": "Sensei"}, {"name": "Jiraiya", "status": "Sensei"}, {"name": "Ebisu", "status": "Sensei"}]}
+{
+	"name": "First lesson",
+	"author": "@dridk",
+	"placeholder": "#This first challenge allows you to see how pandas ninja works.\n#You must write python code to transform the dataframe (`df`) on the top right\n#to the expected dataframe on the bottom right.\n#Pandas module is already imported and available from `pd`.\n#The number of stars obtained is a function\n #of the number of expression\n\n#Uncomment the following code to solve the challenge:\n#df[\"status\"] = \"Sensei\"\n",
+	"input": [
+		{
+			"name": "Iruka"
+		},
+		{
+			"name": "Kakashi"
+		},
+		{
+			"name": "Jiraiya"
+		},
+		{
+			"name": "Ebisu"
+		}
+	],
+	"expected": [
+		{
+			"name": "Iruka",
+			"status": "Sensei"
+		},
+		{
+			"name": "Kakashi",
+			"status": "Sensei"
+		},
+		{
+			"name": "Jiraiya",
+			"status": "Sensei"
+		},
+		{
+			"name": "Ebisu",
+			"status": "Sensei"
+		}
+	]
+}
