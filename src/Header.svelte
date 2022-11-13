@@ -6,10 +6,8 @@
   const dispatch = createEventDispatcher();
 
   let code = "";
-  export let loading = false;
   export let title: string;
   export let level: string;
-  export let file: string;
   export let rating: number;
   export let index: number;
 

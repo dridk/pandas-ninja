@@ -1,0 +1,1 @@
+{"name": "Square it", "author": "", "placeholder": "\n# Create a new column y \n# which is the square of x \n", "input": [{"x": 1}, {"x": 2}, {"x": 3}, {"x": 4}, {"x": 5}, {"x": 6}, {"x": 7}], "expected": [{"x": 1, "y": 1}, {"x": 2, "y": 4}, {"x": 3, "y": 9}, {"x": 4, "y": 16}, {"x": 5, "y": 25}, {"x": 6, "y": 36}, {"x": 7, "y": 49}]}

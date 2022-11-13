@@ -16,12 +16,6 @@
   const ICON_ON = `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
 <path fill="#25AC47" d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z" />
 </svg>`;
-
-  function getRating(filename: string): number {
-    let value = localStorage.getItem(filename) ?? "-1";
-    console.debug("RATING", value, filename);
-    return parseInt(value);
-  }
 </script>
 
 <label for="my-drawer-4" class="drawer-overlay" />
@@ -40,7 +34,7 @@
   </div>
 
   <ul class="menu bg-base-100 w-full mt-5 ">
-    {#each challenges as { title, file, level }, i}
+    {#each challenges as { title, file, level, rating }, i}
       {#if level_filter == level}
         <li>
           <a
@@ -62,7 +56,7 @@
               <div class="flex flex-col justify-center items-left ">
                 <a class="text-slate-100 "> {title}</a>
 
-                <Rating size="20" score={getRating(file)} />
+                <Rating size="20" score={rating} />
               </div>
             </div>
 

@@ -119,7 +119,7 @@
 
     challenges = [];
     try {
-      let response = await fetch("challenges.json");
+      let response = await fetch("challenges.json", { cache: "no-store" });
       let el = await response.json();
       challenges = el["data"] ?? [];
 
@@ -153,13 +153,16 @@
 
     if (!file) {
       console.error("no file specified");
-      throw Error("Cannot get challenge file");
+      throw Error("Cannot get challenge file " + file);
     }
 
     try {
       console.log("Load challenge details", file);
-      let response = await fetch(`challenges/${file}`);
+      let response = await fetch(`challenges/${file}`, { cache: "no-store" });
+
       challengeDetail = await response.json();
+      console.debug("response", challengeDetail);
+
       code = challengeDetail.placeholder ?? "";
       runCode();
     } catch (error) {
@@ -172,7 +175,7 @@
   // ------------------------------------------------------
   function getRating(file: string): number {
     let value = localStorage.getItem(file) ?? "-1";
-    console.debug("RATING", value, file);
+    console.debug(file, "RATING", value);
     return parseInt(value);
   }
   // ------------------------------------------------------
@@ -239,8 +242,6 @@
       // build all code
       let all_code =
         start_code + "\n" + code + "\n" + end_code + "\n" + intro_code;
-
-      console.debug(all_code);
 
       // run all_code
       pyodide.runPython(all_code);
@@ -328,7 +329,6 @@
       on:menu={() => (show_drawer = !show_drawer)}
       title={challenge?.title}
       level={challenge?.level}
-      file={challenge?.file}
       rating={challenge?.rating}
       index={challengeIndex}
       {loading}

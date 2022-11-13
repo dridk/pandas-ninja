@@ -1,13 +1,23 @@
 {
 	"data": [
 		{
-			"title": "First challenge",
-			"file": "first_challenge.json",
+			"title": "Lesson 1",
+			"file": "first_lesson.json",
 			"level": "easy"
 		},
 		{
-			"title": "Simple sort",
-			"file": "simple_sort.json",
+			"title": "Square it",
+			"file": "square-it.json",
+			"level": "easy"
+		},
+		{
+			"title": "Sort it",
+			"file": "sort-it.json",
+			"level": "easy"
+		},
+		{
+			"title": "Replace the void in you",
+			"file": "replace-nan.json",
 			"level": "easy"
 		},
 		{
