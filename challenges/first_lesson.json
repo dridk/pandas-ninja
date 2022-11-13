@@ -1,7 +1,7 @@
 {
 	"name": "First lesson",
 	"author": "@dridk",
-	"placeholder": "#This first challenge allows you to see how pandas ninja works.\n#You must write python code to transform the dataframe (`df`) on the top right\n#to the expected dataframe on the bottom right.\n#Pandas module is already imported and available from `pd`.\n#The number of stars obtained is a function\n #of the number of expression\n\n#Uncomment the following code to solve the challenge:\n#df[\"status\"] = \"Sensei\"\n",
+	"placeholder": "#This first challenge allows you to see how pandas ninja works.\n#You must write python code to transform the dataframe (`df`) on the top right\n#to the expected dataframe on the bottom right.\n#Pandas module is already imported and available from `pd`.\n#The number of stars obtained is a function\n #of the number of expression\n\n#Uncomment the following line to solve the challenge:\n#df[\"status\"] = \"Sensei\"\n",
 	"input": [
 		{
 			"name": "Iruka"
