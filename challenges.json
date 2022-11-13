@@ -1,19 +1,64 @@
 {
 	"data": [
 		{
-			"title": "First challenge",
-			"file": "first_challenge.json",
+			"title": "Lesson 1",
+			"file": "first_lesson.json",
 			"level": "easy"
 		},
 		{
-			"title": "Simple sort",
-			"file": "simple_sort.json",
+			"title": "Square it",
+			"file": "square-it.json",
+			"level": "easy"
+		},
+		{
+			"title": "Sort it",
+			"file": "sort-it.json",
+			"level": "easy"
+		},
+		{
+			"title": "replace nan",
+			"file": "replace-nan.json",
+			"level": "easy"
+		},
+		{
+			"title": "group mean",
+			"file": "group_mean.json",
 			"level": "easy"
 		},
 		{
 			"title": "Explode",
 			"file": "explode.json",
 			"level": "medium"
+		},
+		{
+			"title": "Aggregate",
+			"file": "aggregate.json",
+			"level": "medium"
+		},
+		{
+			"title": "Pivot",
+			"file": "pivot.json",
+			"level": "medium"
+		},
+		{
+			"title": "Prevalence",
+			"file": "prevalence.json",
+			"level": "medium"
+		},
+		{
+			"title": "Split and combine",
+			"file": "split_and_combine.json",
+			"level": "hard"
+		},
+		{
+			"title": "Groups anonymisation",
+			"file": "groups_anonymisation.json",
+			"level": "hard"
+		},
+		{
+			"title": "Reorder alpha num",
+			"file": "reorder.json",
+			"level": "hard"
 		},
 		{
 			"title": "get dummies",

@@ -1,0 +1,65 @@
+{
+	"name": "pivot",
+	"placeholder": "#Create a matrix with fruit count per user",
+	"author": "@dridk",
+	"input": [
+		{
+			"user": "kevin",
+			"fruit": "orange"
+		},
+		{
+			"user": "charles",
+			"fruit": "orange"
+		},
+		{
+			"user": "mike",
+			"fruit": "melon"
+		},
+		{
+			"user": "bob",
+			"fruit": "cranberry"
+		}
+	],
+	"expected": [
+		{
+			"apple": 0,
+			"cherry": 1,
+			"cranberry": 1,
+			"melon": 0,
+			"orange": 0,
+			"pineapple": 0,
+			"strawberry": 1,
+			"tomatoe": 0
+		},
+		{
+			"apple": 0,
+			"cherry": 0,
+			"cranberry": 0,
+			"melon": 0,
+			"orange": 1,
+			"pineapple": 0,
+			"strawberry": 0,
+			"tomatoe": 0
+		},
+		{
+			"apple": 1,
+			"cherry": 0,
+			"cranberry": 0,
+			"melon": 0,
+			"orange": 2,
+			"pineapple": 0,
+			"strawberry": 0,
+			"tomatoe": 1
+		},
+		{
+			"apple": 0,
+			"cherry": 0,
+			"cranberry": 0,
+			"melon": 1,
+			"orange": 0,
+			"pineapple": 1,
+			"strawberry": 0,
+			"tomatoe": 0
+		}
+	]
+}
