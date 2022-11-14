@@ -56,10 +56,9 @@ All challenges are stored in the [public/challenges/](https://github.com/dridk/p
 a python script [challenge.py](https://raw.githubusercontent.com/dridk/pandas-ninja/main/challenge.py) is available to create challenges. It depends only on `simplejson` and `pandas`.
 
 #### Setup
-```
+```bash
 pip install simplejson
 wget https://raw.githubusercontent.com/dridk/pandas-ninja/main/challenge.py
-
 ```
 
 Create a script file with the following code : 
