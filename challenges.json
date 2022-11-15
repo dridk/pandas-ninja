@@ -1,8 +1,8 @@
 {
 	"data": [
 		{
-			"title": "Lesson 1",
-			"file": "first_lesson.json",
+			"title": "Introduction",
+			"file": "introduction.json",
 			"level": "easy"
 		},
 		{
@@ -16,6 +16,11 @@
 			"level": "easy"
 		},
 		{
+			"title": "Replace",
+			"file": "replace.json",
+			"level": "easy"
+		},
+		{
 			"title": "replace nan",
 			"file": "replace-nan.json",
 			"level": "easy"
@@ -26,6 +31,16 @@
 			"level": "easy"
 		},
 		{
+			"title": "Clip",
+			"file": "clip.json",
+			"level": "easy"
+		},
+		{
+			"title": "Split & expand",
+			"file": "split-expand.json",
+			"level": "easy"
+		},
+		{
 			"title": "Explode",
 			"file": "explode.json",
 			"level": "medium"
@@ -33,6 +48,11 @@
 		{
 			"title": "Aggregate",
 			"file": "aggregate.json",
+			"level": "medium"
+		},
+		{
+			"title": "Sort date",
+			"file": "sort-date.json",
 			"level": "medium"
 		},
 		{
