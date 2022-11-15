@@ -34,7 +34,7 @@
 <div class="flex flex-col h-full">
   <ToolBar>
     <div class="flex justify-between items-center p-4">
-      <h2>{title}</h2>
+      <h2 class="pb-2">{title}</h2>
 
       <Clipboard
         text={ConvertToCSV(data)}

@@ -9,7 +9,11 @@
 <div class="wrapper ">
 	<Split splitterSize={splitter_size}>
 		<svelte:fragment slot="primary">
-			<Split horizontal splitterSize={splitter_size}>
+			<Split
+				horizontal
+				splitterSize={splitter_size}
+				initialPrimarySize="70%"
+			>
 				<div slot="primary" class="h-full">
 					<!-- First cell  -->
 
@@ -34,6 +38,7 @@
 
 		<svelte:fragment slot="splitter">
 			<DefaultSplitter
+				initialPrimarySize="70%"
 				color={splitter_color}
 				hoverColor={splitter_active_color}
 				dragColor={splitter_active_color}

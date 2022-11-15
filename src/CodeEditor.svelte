@@ -20,7 +20,7 @@
 
 <ToolBar>
   <div class="flex justify-between items-center h-full p-2">
-    <h2 class="flex-grow">Code editor</h2>
+    <h2 class="flex">Code editor</h2>
 
     <div class="mr-4 flex gap-1">
       <kbd class="kbd kbd-xs">Control</kbd>
