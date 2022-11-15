@@ -31,7 +31,7 @@
   // ==================================
 </script>
 
-<div class="overflow-x-auto overflow-y-auto h-full">
+<div class="flex flex-col h-full">
   <ToolBar>
     <div class="flex justify-between items-center p-4">
       <h2>{title}</h2>
@@ -60,25 +60,26 @@
     </div>
   </ToolBar>
 
-  <table class="table table-compact w-full  ">
-    <thead>
-      <tr>
-        {#each headers as name, i}
-          <th class="normal-case"> {name} </th>
-        {/each}
-      </tr>
-    </thead>
-
-    <tbody>
-      {#each data as item, index}
+  <div class="h-full overflow-y-auto">
+    <table class="table table-compact w-full ">
+      <thead class="sticky top-0">
         <tr>
-          {#each headers as name, index}
-            <td>{item[name]}</td>
+          {#each headers as name, i}
+            <th class="normal-case"> {name} </th>
           {/each}
         </tr>
-      {/each}
-    </tbody>
-  </table>
-</div>
+      </thead>
 
+      <tbody>
+        {#each data as item, index}
+          <tr>
+            {#each headers as name, index}
+              <td>{item[name]}</td>
+            {/each}
+          </tr>
+        {/each}
+      </tbody>
+    </table>
+  </div>
+</div>
 <div id="clipboard" />
