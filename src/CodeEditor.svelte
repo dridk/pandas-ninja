@@ -23,14 +23,14 @@
     <h2 class="flex-grow">Code editor</h2>
 
     <div class="mr-4 flex gap-1">
-      <kbd class="kbd kbd-xs">shift</kbd>
+      <kbd class="kbd kbd-xs">Control</kbd>
       +
-      <kbd class="kbd kbd-xs">Space</kbd>
+      <kbd class="kbd kbd-xs">Return</kbd>
     </div>
 
     <div>
       <button
-        use:shortcut={{ shift: true, code: "Space" }}
+        use:shortcut={{ control: true, code: "Enter" }}
         on:click={emit_run}
         class="btn btn-primary btn-sm "
         >Run
@@ -45,7 +45,7 @@
   options={{
     showPrintMargin: false,
     showLineNumbers: true,
-    showGutter: true,
+    showGutter: false,
     enableBasicAutocompletion: true,
     highlightActiveLine: false,
     wrap: 200,
