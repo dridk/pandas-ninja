@@ -1,0 +1,89 @@
+{
+  "title": "slice",
+  "author": "@lvelosuarez",
+  "placeholder": "#This text will be place into the code editor \nprint(df)",
+  "input": [
+  {
+    "id": "boby",
+    "color": "blue",
+    "DB": "CMYK"
+  },
+  {
+    "id": "boby",
+    "color": "blue",
+    "DB": "RGB"
+  },
+  {
+    "id": "boby",
+    "color": "blue",
+    "DB": "LAB"
+  },
+  {
+    "id": "panda",
+    "color": "brown",
+    "DB": "CMYK"
+  },
+  {
+    "id": "machin",
+    "color": "yellow",
+    "DB": "RGB"
+  },
+  {
+    "id": "machin",
+    "color": "yellow",
+    "DB": "LAB"
+  },
+  
+  {
+    "id": "bonobo",
+    "color": "red",
+    "DB": "RGB"
+  },
+  {
+    "id": "bonobo",
+    "color": "red",
+    "DB": "CMYK"
+  },
+  {
+    "id": "bonobo",
+    "color": "red",
+    "DB": "LAB"
+  },
+  {
+    "id": "shakira",
+    "color": "green",
+    "DB": "CMYK"
+  },
+  {
+    "id": "shakira",
+    "color": "green",
+    "DB": "LAB"
+  }
+],
+"expected":[
+  {
+    "id": "boby",
+    "color": "blue",
+    "DB": "RGB"
+  },
+  {
+    "id": "panda",
+    "color": "brown",
+    "DB": "CMYK"
+  },
+  {
+    "id": "machin",
+    "color": "yellow",
+    "DB": "RGB"
+  },
+  {
+    "id": "bonobo",
+    "color": "red",
+    "DB": "RGB"
+  },
+  {
+    "id": "shakira",
+    "color": "green",
+    "DB": "CMYK"
+  }
+]
